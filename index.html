@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SHOREWAY | Airport Share Taxi</title>
+<meta name="description" content="SHOREWAY Airport Share Taxi and Cab Booking">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="brand"><span class="logo">S</span><div><b>SHOREWAY</b><small>GUIDING EVERY JOURNEY</small></div></div>
+  <a class="call" href="tel:+918940694977">Call Now</a>
+</header>
+
+<main>
+<section class="hero">
+  <div>
+    <p class="eyebrow">🚕 AIRPORT SHARE TAXI</p>
+    <h1>Travel smarter.<br><span>Book your cab.</span></h1>
+    <p class="lead">Chennai Airport ↔ Sirkali • Chidambaram • Mayiladuthurai • Karaikal and nearby areas.</p>
+    <a href="#booking" class="primary">BOOK NOW</a>
+  </div>
+</section>
+
+<section class="services">
+<h2>Our Services</h2>
+<div class="cards">
+  <article>✈️<h3>Airport Share</h3><p>Affordable shared airport travel.</p></article>
+  <article>🚗<h3>One Way</h3><p>Comfortable point-to-point drops.</p></article>
+  <article>🔄<h3>Round Trip</h3><p>Flexible return journeys.</p></article>
+  <article>🧳<h3>Tour Package</h3><p>Plan your Tamil Nadu journey.</p></article>
+</div>
+</section>
+
+<section id="booking" class="booking">
+<h2>Book Your Cab</h2>
+<form id="bookingForm">
+  <label>Service Type
+    <select id="service" required>
+      <option value="Airport Share">Airport Share</option>
+      <option value="One Way">One Way</option>
+      <option value="Round Trip">Round Trip</option>
+      <option value="Tour Package">Tour Package</option>
+    </select>
+  </label>
+  <div class="grid">
+    <label>Pickup Location<input id="pickup" required placeholder="e.g. Sirkali"></label>
+    <label>Drop Location<input id="drop" required placeholder="e.g. Chennai Airport"></label>
+  </div>
+  <div class="grid">
+    <label>Travel Date<input id="date" type="date" required></label>
+    <label>Pickup Time<input id="time" type="time" required></label>
+  </div>
+  <label>Passengers<input id="passengers" type="number" min="1" max="7" value="1" required></label>
+  <button class="primary full" type="submit">GET FARE & BOOK ON WHATSAPP</button>
+</form>
+<div id="result" class="result hidden"></div>
+</section>
+
+<section class="fare">
+<h2>Popular Airport Share Fares</h2>
+<div class="faregrid">
+  <div><b>Sirkali</b><strong>₹3,000</strong></div>
+  <div><b>Chidambaram</b><strong>₹3,000</strong></div>
+  <div><b>Mayiladuthurai</b><strong>₹3,500</strong></div>
+  <div><b>Karaikal</b><strong>₹3,500</strong></div>
+</div>
+<p class="note">Fares are indicative. Nearby villages, tolls, parking and special requests may vary.</p>
+</section>
+</main>
+
+<footer>
+  <b>SHOREWAY</b><p>Safe • Reliable • On Time</p>
+  <a href="https://wa.me/918940694977" target="_blank">WhatsApp: 8940694977</a>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>
