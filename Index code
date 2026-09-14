@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>IFRAH CABS | Share Taxi & One Way</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f7fa;
+    color: #172033;
+}
+
+/* TOP BAR */
+.top {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: white;
+    padding: 14px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+}
+
+.logo {
+    font-size: 23px;
+    font-weight: 800;
+    letter-spacing: 1px;
+}
+
+.book-btn {
+    background: #111;
+    color: white;
+    text-decoration: none;
+    padding: 11px 18px;
+    border-radius: 25px;
+    font-weight: bold;
+}
+
+/* HERO */
+.hero {
+    padding: 65px 20px;
+    text-align: center;
+    background: linear-gradient(135deg, #111827, #334155);
+    color: white;
+}
+
+.hero h1 {
+    font-size: 38px;
+    margin: 0 0 12px;
+}
+
+.hero p {
+    font-size: 18px;
+    margin: 0;
+}
+
+/* CONTENT */
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 30px 16px;
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 22px;
+}
+
+/* FARE CARDS */
+.fare-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 18px;
+}
+
+.card {
+    background: white;
+    padding: 22px;
+    border-radius: 18px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+.card h3 {
+    font-size: 23px;
+    margin-top: 0;
+}
+
+.price {
+    font-size: 28px;
+    font-weight: 800;
+    margin: 12px 0;
+}
+
+.card li {
+    line-height: 1.9;
+}
+
+.note {
+    background: #fff8df;
+    padding: 15px;
+    border-radius: 12px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+/* BOOKING FORM */
+form {
+    background: white;
+    padding: 22px;
+    border-radius: 18px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin: 13px 0 6px;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #d5dbe5;
+    border-radius: 10px;
+    font-size: 16px;
+    background: white;
+}
+
+.submit-btn {
+    width: 100%;
+    border: none;
+    background: #159447;
+    color: white;
+    padding: 15px;
+    border-radius: 12px;
+    font-size: 17px;
+    font-weight: 800;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.whatsapp {
+    display: block;
+    text-align: center;
+    margin-top: 14px;
+    color: #159447;
+    font-weight: bold;
+}
+
+footer {
+    text-align: center;
+    padding: 30px;
+    color: #667085;
+}
+
+/* VEHICLE HIDDEN BY DEFAULT */
+#vehicleBox {
+    display: none;
+}
+</style>
+</head>
+
+<body>
+
+<!-- TOP -->
+<header class="top">
+    <div class="logo">IFRAH CABS</div>
+
+    <a href="#booking" class="book-btn">
+        BOOK NOW
+    </a>
+</header>
+
+
+<!-- HERO -->
+<section class="hero">
+
+    <h1>Share Taxi & One Way</h1>
+
+    <p>
+        Safe • Reliable • On Time • 24/7 Service
+    </p>
+
+</section>
+
+
+<div class="container">
+
+<!-- FARE SECTION -->
+
+<h2>Our Fare</h2>
+
+<div class="fare-cards">
+
+    <!-- SHARE TAXI -->
+    <div class="card">
+
+        <h3>🚕 Share Taxi</h3>
+
+        <div class="price">
+            Airport Share Taxi
+        </div>
+
+        <ul>
+
+            <li>
+                Chennai Airport → Sirkali — ₹3,000
+            </li>
+
+            <li>
+                Chennai Airport → Chidambaram — ₹3,000
+            </li>
+
+            <li>
+                Chennai Airport → Mayiladuthurai — ₹3,500
+            </li>
+
+            <li>
+                Chennai Airport → Karaikal — ₹3,500
+            </li>
+
+        </ul>
+
+        <small>
+            Nearby surrounding areas also available.
+        </small>
+
+    </div>
+
+
+    <!-- ONE WAY -->
+    <div class="card">
+
+        <h3>🚗 One Way</h3>
+
+        <div class="price">
+            ₹15 / KM
+        </div>
+
+        <ul>
+
+            <li>
+                Minimum coverage: 130 KM
+            </li>
+
+            <li>
+                Driver allowance: ₹400
+            </li>
+
+            <li>
+                Toll / Permit / Parking — Extra
+            </li>
+
+            <li>
+                Waiting charges — Extra
+            </li>
+
+        </ul>
+
+        <small>
+            Example: 130 KM × ₹15 + ₹400
+            = ₹2,350 + Extra Charges
+        </small>
+
+    </div>
+
+</div>
+
+
+<div class="note">
+
+    <b>One Way Fare</b><br>
+
+    ₹15/KM • Minimum 130 KM • Driver Allowance ₹400
+
+    <br>
+
+    Toll / Permit / Parking / Waiting charges extra.
+
+</div>
+
+
+<!-- BOOKING -->
+
+<section id="booking">
+
+<h2>Book Your Taxi</h2>
+
+<form id="bookingForm">
+
+
+<!-- SERVICE TYPE -->
+
+<label for="service">
+    Service Type
+</label>
+
+<select id="service" required>
+
+    <option value="Share Taxi">
+        Share Taxi
+    </option>
+
+    <option value="One Way">
+        One Way
+    </option>
+
+</select>
+
+
+<!-- VEHICLE TYPE -->
+<!-- ONLY SHOWS FOR ONE WAY -->
+
+<div id="vehicleBox">
+
+    <label for="vehicle">
+        Vehicle Type
+    </label>
+
+    <select id="vehicle">
+
+        <option value="">
+            Select Vehicle
+        </option>
+
+        <option value="Sedan">
+            🚗 Sedan
+        </option>
+
+        <option value="SUV">
+            🚙 SUV
+        </option>
+
+    </select>
+
+</div>
+
+
+<!-- DATE -->
+
+<label for="date">
+    Travel Date
+</label>
+
+<input
+    type="date"
+    id="date"
+    required
+>
+
+
+<!-- PICKUP -->
+
+<label for="pickup">
+    Pickup Location
+</label>
+
+<input
+    type="text"
+    id="pickup"
+    placeholder="Pickup location"
+    required
+>
+
+
+<!-- DROP -->
+
+<label for="drop">
+    Drop Location
+</label>
+
+<input
+    type="text"
+    id="drop"
+    placeholder="Drop location"
+    required
+>
+
+
+<!-- PASSENGERS -->
+
+<label for="passengers">
+    Passengers
+</label>
+
+<input
+    type="number"
+    id="passengers"
+    min="1"
+    value="1"
+    required
+>
+
+
+<!-- TIME -->
+
+<label for="time">
+    Pickup Time
+</label>
+
+<input
+    type="time"
+    id="time"
+    required
+>
+
+
+<!-- NAME -->
+
+<label for="name">
+    Passenger Name
+</label>
+
+<input
+    type="text"
+    id="name"
+    placeholder="Your name"
+    required
+>
+
+
+<!-- MOBILE -->
+
+<label for="mobile">
+    Mobile Number
+</label>
+
+<input
+    type="tel"
+    id="mobile"
+    placeholder="10 digit mobile number"
+    required
+>
+
+
+<button
+    type="submit"
+    class="submit-btn"
+>
+    BOOK NOW ON WHATSAPP
+</button>
+
+
+<a
+    class="whatsapp"
+    href="https://wa.me/918940694977"
+>
+    WhatsApp: 8940694977
+</a>
+
+</form>
+
+</section>
+
+</div>
+
+
+<footer>
+
+© 2026 IFRAH CABS • Guiding Every Journey
+
+</footer>
+
+
+<script>
+
+/* =====================================
+   SHOW VEHICLE ONLY FOR ONE WAY
+===================================== */
+
+const service =
+    document.getElementById("service");
+
+const vehicleBox =
+    document.getElementById("vehicleBox");
+
+const vehicle =
+    document.getElementById("vehicle");
+
+
+function updateVehicle() {
+
+    if (service.value === "One Way") {
+
+        // Show vehicle
+        vehicleBox.style.display = "block";
+
+        // Vehicle required
+        vehicle.required = true;
+
+    } else {
+
+        // Hide vehicle
+        vehicleBox.style.display = "none";
+
+        // Vehicle not required
+        vehicle.required = false;
+
+        // Clear selection
+        vehicle.value = "";
+
+    }
+
+}
+
+
+/* When service changes */
+
+service.addEventListener(
+    "change",
+    updateVehicle
+);
+
+
+/* Run when page opens */
+
+updateVehicle();
+
+
+
+/* =====================================
+   WHATSAPP BOOKING
+===================================== */
+
+document
+.getElementById("bookingForm")
+.addEventListener("submit", function(e) {
+
+    e.preventDefault();
+
+
+    const serviceType =
+        service.value;
+
+    const vehicleType =
+        vehicle.value;
+
+
+    let message =
+`🚕 IFRAH CABS BOOKING
+
+Service Type: ${serviceType}
+`;
+
+
+    /* Vehicle only for One Way */
+
+    if (serviceType === "One Way") {
+
+        message +=
+`Vehicle Type: ${vehicleType}
+`;
+
+    }
+
+
+    message +=
+`
+Passenger Name: ${
+    document.getElementById("name").value
+}
+
+Mobile: ${
+    document.getElementById("mobile").value
+}
+
+Travel Date: ${
+    document.getElementById("date").value
+}
+
+Pickup: ${
+    document.getElementById("pickup").value
+}
+
+Drop: ${
+    document.getElementById("drop").value
+}
+
+Passengers: ${
+    document.getElementById("passengers").value
+}
+
+Pickup Time: ${
+    document.getElementById("time").value
+}`;
+
+
+    /* One Way fare */
+
+    if (serviceType === "One Way") {
+
+        message +=
+`
+
+Fare:
+
+₹15/KM
+Minimum 130 KM
+Driver Allowance ₹400
