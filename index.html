@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IFRAH CABS - Share Taxi</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header><h1>IFRAH CABS</h1><p>SHARE TAXI • SAFE • RELIABLE • ON TIME</p><a href="tel:8940694977">📞 8940694977</a></header>
+<main>
+<section><h2>Popular Share Taxi Fare</h2>
+<div class="fares">
+<div>Chennai Airport → Sirkali <b>₹3,000</b></div>
+<div>Chennai Airport → Chidambaram <b>₹3,000</b></div>
+<div>Chennai Airport → Karaikal <b>₹3,500</b></div>
+<div>Chennai Airport → Mayiladuthurai <b>₹3,500</b></div>
+</div>
+<p>Service available in nearby areas around Sirkali, Chidambaram, Karaikal and Mayiladuthurai.</p></section>
+
+<section><h2>🚕 Share Taxi Booking</h2>
+<form id="bookingForm">
+<label>Travel Date<input id="date" type="date" required></label>
+<label>Pickup Location<input id="pickup" type="text" placeholder="Example: Chennai Airport" required></label>
+<label>Drop Location<input id="drop" type="text" placeholder="Enter any town / location" required></label>
+<label>Passengers<input id="passengers" type="number" min="1" max="6" value="1" required></label>
+<label>Pickup Time<input id="time" type="time" required></label>
+<label>Name<input id="name" type="text" required></label>
+<label>Mobile<input id="mobile" type="tel" inputmode="numeric" maxlength="10" placeholder="10-digit mobile" required></label>
+<div class="fare"><span>Share Taxi Fare</span><b id="fare">Enter destination</b></div>
+<button type="button" id="mapBtn">🗺️ OPEN GOOGLE MAPS</button>
+<button type="submit">💬 BOOK ON WHATSAPP</button>
+</form></section>
+</main>
+<footer>© 2026 IFRAH CABS • 24/7 Share Taxi Booking</footer>
+<script src="script.js"></script>
+</body></html>
