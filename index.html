@@ -1,74 +1,67 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>SHOREWAY | Share Taxi Taxi</title>
-<meta name="description" content="SHOREWAY Share Taxi Taxi and Cab Booking">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IFRAH CABS | Share Taxi</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
-  <div class="brand"><span class="logo">S</span><div><b>SHOREWAY</b><small>GUIDING EVERY JOURNEY</small></div></div>
-  <a class="call" href="tel:+918940694977">Call Now</a>
+<header class="hero">
+  <div class="wrap">
+    <div class="brand">IFRAH CABS</div>
+    <p>SHARE TAXI • SAFE • RELIABLE • ON TIME</p>
+    <a class="call" href="tel:8940694977">📞 8940694977</a>
+  </div>
 </header>
 
-<main>
-<section class="hero">
-  <div>
-    <p class="eyebrow">🚕 AIRPORT SHARE TAXI</p>
-    <h1>Travel smarter.<br><span>Book your cab.</span></h1>
-    <p class="lead">Chennai Airport ↔ Sirkali • Chidambaram • Mayiladuthurai • Karaikal and nearby areas.</p>
-    <a href="#booking" class="primary">BOOK NOW</a>
-  </div>
-</section>
+<main class="wrap">
+  <section class="intro">
+    <h1>Chennai Airport Share Taxi</h1>
+    <p>Comfortable share taxi service from Chennai Airport to your town.</p>
+  </section>
 
-<section class="services">
-<h2>Share Taxi</h2>
-<div class="cards">
-  <article>✈️<h3>Airport Share Taxi</h3><p>Affordable shared airport travel.</p></article>
-</div>
-</section>
+  <section class="card">
+    <h2>Popular Share Taxi Fare</h2>
+    <div class="fares">
+      <div><b>Chennai Airport → Sirkali</b><strong>₹3,000</strong></div>
+      <div><b>Chennai Airport → Chidambaram</b><strong>₹3,000</strong></div>
+      <div><b>Chennai Airport → Karaikal</b><strong>₹3,500</strong></div>
+      <div><b>Chennai Airport → Mayiladuthurai</b><strong>₹3,500</strong></div>
+    </div>
+    <p class="note">Service available in nearby areas around Sirkali, Chidambaram, Karaikal and Mayiladuthurai. Contact us for pickup/drop availability and final fare.</p>
+  </section>
 
-<section id="booking" class="booking">
-<h2>Book Your Cab</h2>
-<form id="bookingForm">
-  <label>Service Type
-    <select id="service" required>
-      <option value="Share Taxi">Share Taxi</option>
-    </select>
-  </label>
-  <div class="grid">
-    <label>Pickup Location<input id="pickup" required placeholder="e.g. Sirkali"></label>
-    <label>Drop Location<input id="drop" required placeholder="e.g. Chennai Airport"></label>
-  </div>
-  <div class="grid">
-    <label>Travel Date<input id="date" type="date" required></label>
-    <label>Pickup Time<input id="time" type="time" required></label>
-  </div>
-  <label>Passengers<input id="passengers" type="number" min="1" max="7" value="1" required></label>
-  <p class="note">Share Taxi fares are route-based. Nearby villages may have different fares.</p>
-  <button class="primary full" type="submit">GET FARE & BOOK ON WHATSAPP</button>
-</form>
-<div id="result" class="result hidden"></div>
-</section>
+  <section class="card">
+    <h2>🚕 Book Your Share Taxi</h2>
+    <form id="bookingForm">
+      <label>Travel Date<input type="date" id="date" required></label>
+      <label>Pickup Location<input id="pickup" placeholder="Example: Chennai Airport" required></label>
+      <label>Drop Location
+        <select id="drop" required>
+          <option value="">Select destination</option>
+          <option value="Sirkali">Sirkali</option>
+          <option value="Chidambaram">Chidambaram</option>
+          <option value="Karaikal">Karaikal</option>
+          <option value="Mayiladuthurai">Mayiladuthurai</option>
+        </select>
+      </label>
+      <label>Passengers<input type="number" id="passengers" min="1" max="6" value="1" required></label>
+      <label>Pickup Time<input type="time" id="time" required></label>
+      <label>Name<input id="name" required></label>
+      <label>Mobile<input id="mobile" inputmode="numeric" maxlength="10" pattern="[0-9]{10}" required></label>
 
-<section class="fare">
-<h2>Popular Share Taxi Fares</h2>
-<div class="faregrid">
-  <div><b>Sirkali</b><strong>₹3,000</strong></div>
-  <div><b>Chidambaram</b><strong>₹3,000</strong></div>
-  <div><b>Mayiladuthurai</b><strong>₹3,500</strong></div>
-  <div><b>Karaikal</b><strong>₹3,500</strong></div>
-</div>
-<p class="note">Fares are indicative. Nearby villages, tolls, parking and special requests may vary.</p>
-</section>
+      <div class="selected-fare">
+        <span>Selected Fare</span><strong id="fare">Select destination</strong>
+      </div>
+
+      <button type="button" id="maps">🗺️ OPEN ROUTE IN GOOGLE MAPS</button>
+      <button type="submit">💬 SEND BOOKING ON WHATSAPP</button>
+    </form>
+  </section>
 </main>
 
-<footer>
-  <b>SHOREWAY</b><p>Safe • Reliable • On Time</p>
-  <a href="https://wa.me/918940694977" target="_blank">WhatsApp: 8940694977</a>
-</footer>
+<footer>© 2026 IFRAH CABS • Share Taxi • 24/7 Booking</footer>
 <script src="script.js"></script>
 </body>
 </html>

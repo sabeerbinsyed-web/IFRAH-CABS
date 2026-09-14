@@ -1,33 +1,37 @@
-const form=document.getElementById("bookingForm");
-const result=document.getElementById("result");
-const date=document.getElementById("date");
-date.min=new Date().toISOString().split("T")[0];
+document.addEventListener("DOMContentLoaded",()=> {
+ const fareMap={Sirkali:"₹3,000",Chidambaram:"₹3,000",Karaikal:"₹3,500",Mayiladuthurai:"₹3,500"};
+ const $=id=>document.getElementById(id);
+ function fare(){ $("fare").textContent=fareMap[$("drop").value]||"Select destination"; }
+ $("drop").addEventListener("change",fare); fare();
 
-function money(n){return "₹"+Math.round(n).toLocaleString("en-IN");}
+ function route(){
+   const pickup=$("pickup").value.trim(), drop=$("drop").value;
+   if(!pickup||!drop){alert("Please enter Pickup Location and select Drop Location.");return;}
+   const url="https://www.google.com/maps/dir/?api=1&origin="+encodeURIComponent(pickup)+"&destination="+encodeURIComponent(drop+", Tamil Nadu");
+   window.open(url,"_blank","noopener");
+ }
+ $("maps").addEventListener("click",route);
 
-function routeFare(drop){
-  const route=drop.toLowerCase();
-  if(route.includes("sirkali")) return 3000;
-  if(route.includes("chidambaram")) return 3000;
-  if(route.includes("mayiladuthurai")) return 3500;
-  if(route.includes("karaikal")) return 3500;
-  return 0;
-}
+ $("bookingForm").addEventListener("submit",e=>{
+   e.preventDefault();
+   const mobile=$("mobile").value.trim();
+   if(!/^[0-9]{10}$/.test(mobile)){alert("Please enter a valid 10-digit mobile number.");return;}
+   const pickup=$("pickup").value.trim(),drop=$("drop").value;
+   if(!pickup||!drop){alert("Please enter Pickup and Drop Location.");return;}
+   const map="https://www.google.com/maps/dir/?api=1&origin="+encodeURIComponent(pickup)+"&destination="+encodeURIComponent(drop+", Tamil Nadu");
+   const msg=`🚕 IFRAH CABS - SHARE TAXI BOOKING
 
-form.addEventListener("submit",e=>{
- e.preventDefault();
- const pickup=document.getElementById("pickup").value.trim();
- const drop=document.getElementById("drop").value.trim();
- const d=document.getElementById("date").value;
- const t=document.getElementById("time").value;
- const p=Number(document.getElementById("passengers").value);
- const base=routeFare(drop);
- const fare=base ? base*p : 0;
- const fareText=fare ? money(fare) : "Fare to be confirmed";
+Name: ${$("name").value.trim()}
+Mobile: ${mobile}
+Travel Date: ${$("date").value}
+Pickup: ${pickup}
+Drop: ${drop}
+Passengers: ${$("passengers").value}
+Pickup Time: ${$("time").value}
+Share Taxi Fare: ${fareMap[drop]||"Fare to be confirmed"}
 
- const msg=`SHOREWAY SHARE TAXI BOOKING\n\nService: Share Taxi\nPickup: ${pickup}\nDrop: ${drop}\nDate: ${d}\nTime: ${t}\nPassengers: ${p}\nEstimated Fare: ${fareText}\n\nPlease confirm seat availability and final fare.`;
-
- result.classList.remove("hidden");
- result.innerHTML=`<b>Estimated Fare: ${fareText}</b><br>Share Taxi • ${pickup} → ${drop}<br><small>Final fare and seat availability will be confirmed on WhatsApp.</small><br><br><a class="primary" href="https://wa.me/918940694977?text=${encodeURIComponent(msg)}" target="_blank">CONFIRM ON WHATSAPP</a>`;
- result.scrollIntoView({behavior:"smooth",block:"center"});
+🗺️ Google Maps Route:
+${map}`;
+   window.open("https://wa.me/918940694977?text="+encodeURIComponent(msg),"_blank","noopener");
+ });
 });
