@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IFRAH CABS | Share Taxi & One Way</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:#f5f7fa;color:#172033}
+.top{position:sticky;top:0;background:#fff;padding:14px 18px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 12px #0001;z-index:5}
+.logo{font-size:23px;font-weight:800}.book{background:#111;color:#fff;text-decoration:none;padding:11px 18px;border-radius:25px;font-weight:700}
+.hero{padding:65px 20px;text-align:center;background:linear-gradient(135deg,#111,#334155);color:white}.hero h1{font-size:38px;margin:0 0 12px}.hero p{font-size:18px}
+.wrap{max-width:900px;margin:auto;padding:28px 16px}h2{text-align:center}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.card,form{background:white;border-radius:18px;padding:22px;box-shadow:0 5px 20px #00000012}.card h3{font-size:23px}.price{font-size:27px;font-weight:800}.card li{line-height:1.8}.note{background:#fff8df;padding:14px;border-radius:12px;text-align:center;margin:18px 0}
+label{display:block;font-weight:700;margin:12px 0 6px}input,select{width:100%;padding:13px;border:1px solid #d5dbe5;border-radius:10px;font-size:16px}
+button{width:100%;border:0;background:#159447;color:white;padding:15px;border-radius:12px;font-size:17px;font-weight:800;margin-top:18px}
+.whatsapp{display:block;text-align:center;margin-top:12px;color:#159447;font-weight:700}footer{text-align:center;padding:30px;color:#667085}
+</style></head>
+<body>
+<header class="top"><div class="logo">IFRAH CABS</div><a class="book" href="#booking">BOOK NOW</a></header>
+<section class="hero"><h1>Share Taxi & One Way</h1><p>Safe • Reliable • On Time • 24/7 Service</p></section>
+<main class="wrap">
+<h2>Our Fare</h2>
+<div class="cards">
+<div class="card"><h3>🚕 Share Taxi</h3><div class="price">Airport Share Taxi</div>
+<ul>
+<li>Chennai Airport → Sirkali — ₹3,000</li>
+<li>Chennai Airport → Chidambaram — ₹3,000</li>
+<li>Chennai Airport → Mayiladuthurai — ₹3,500</li>
+<li>Chennai Airport → Karaikal — ₹3,500</li>
+</ul><small>Nearby surrounding areas also available.</small></div>
+<div class="card"><h3>🚗 One Way</h3><div class="price">₹15 / KM</div>
+<ul><li>Minimum coverage: 130 KM</li><li>Driver allowance: ₹400</li><li>Toll / Permit / Parking — Extra</li><li>Waiting charges — Extra</li></ul>
+<small>Example: 130 KM × ₹15 + ₹400 = ₹2,350 + extras</small></div>
+</div>
+<div class="note"><b>One Way:</b> ₹15/KM | Minimum 130 KM | Driver Allowance ₹400<br>Toll / Permit / Parking / Waiting charges extra.</div>
+<section id="booking"><h2>Book Your Taxi</h2>
+<form id="bookingForm">
+<label>Service Type</label><select id="service" required><option>Share Taxi</option><option>One Way</option></select>
+<div id="vehicleWrap" hidden>
+<label for="vehicle">Vehicle Type</label>
+<select id="vehicle">
+<option value="">Select Vehicle</option>
+<option value="Sedan">Sedan</option>
+<option value="SUV">SUV</option>
+</select>
+</div>
+<label>Travel Date</label><input type="date" id="date" required>
+<label>Pickup Location</label><input id="pickup" required placeholder="Pickup location">
+<label>Drop Location</label><input id="drop" required placeholder="Drop location">
+<label>Passengers</label><input type="number" id="passengers" min="1" value="1" required>
+<label>Pickup Time</label><input type="time" id="time" required>
+<label>Passenger Name</label><input id="name" required placeholder="Your name">
+<label>Mobile Number</label><input id="mobile" required placeholder="10 digit mobile number">
+<button type="submit">BOOK NOW ON WHATSAPP</button>
+<a class="whatsapp" href="https://wa.me/918940694977">WhatsApp: 8940694977</a>
+</form></section></main>
+<footer>© 2026 IFRAH CABS • Guiding Every Journey</footer>
+<script>
+(function () {
+  const form = document.getElementById("bookingForm");
+  const service = document.getElementById("service");
+  const vehicleWrap = document.getElementById("vehicleWrap");
+  const vehicle = document.getElementById("vehicle");
+
+  function updateVehicleField() {
+    if (service.value === "One Way") {
+      vehicleWrap.hidden = false;
+      vehicle.required = true;
+    } else {
+      vehicleWrap.hidden = true;
+      vehicle.required = false;
+      vehicle.value = "";
+    }
+  }
+
+  service.addEventListener("change", updateVehicleField);
+  updateVehicleField();
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const s = service.value;
+    const v = vehicle.value;
+    const fare = s === "One Way"
+      ? "₹15/KM, Minimum 130 KM + Driver Allowance ₹400; Toll/Permit/Parking/Waiting Extra"
+      : "Share Taxi fare as per route";
+
+    const msg =
+`🚕 IFRAH CABS BOOKING
+
+Service: ${s}
+${s === "One Way" ? "Vehicle Type: " + v + "\n" : ""}Name: ${document.getElementById("name").value}
+Mobile: ${document.getElementById("mobile").value}
+Travel Date: ${document.getElementById("date").value}
+Pickup: ${document.getElementById("pickup").value}
+Drop: ${document.getElementById("drop").value}
+Passengers: ${document.getElementById("passengers").value}
+Pickup Time: ${document.getElementById("time").value}
+Fare: ${fare}`;
+
+    window.open(
+      "https://wa.me/918940694977?text=" + encodeURIComponent(msg),
+      "_blank"
+    );
+  });
+})();
+</script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+const firebaseConfig = {'apiKey': 'AIzaSyD2yBDsxqzHmHzXy-G9r30uUuNSquDVmZYM', 'authDomain': 'ifrah-cabs.firebaseapp.com', 'projectId': 'ifrah-cabs', 'storageBucket': 'ifrah-cabs.firebasestorage.app', 'messagingSenderId': '1058171424992', 'appId': '1:1058171424992:web:08cfe92a8ab95f014ec085'};
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+window.saveIfrahBooking = async function(data) {
+  try {
+    await addDoc(collection(db, "bookings"), {
+      ...data,
+      createdAt: serverTimestamp(),
+      status: "Pending"
+    });
+  } catch (error) {
+    console.error("Firebase booking save failed:", error);
+  }
+};
+</script>
+</body></html>
