@@ -1,37 +1,25 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>IFRAH CABS - Share Taxi</title>
-<link rel="stylesheet" href="style.css">
-</head>
-<body>
-<header><h1>IFRAH CABS</h1><p>SHARE TAXI • SAFE • RELIABLE • ON TIME</p><a href="tel:8940694977">📞 8940694977</a></header>
-<main>
-<section><h2>Popular Share Taxi Fare</h2>
-<div class="fares">
-<div>Chennai Airport → Sirkali <b>₹3,000</b></div>
-<div>Chennai Airport → Chidambaram <b>₹3,000</b></div>
-<div>Chennai Airport → Karaikal <b>₹3,500</b></div>
-<div>Chennai Airport → Mayiladuthurai <b>₹3,500</b></div>
-</div>
-<p>Service available in nearby areas around Sirkali, Chidambaram, Karaikal and Mayiladuthurai.</p></section>
-
-<section><h2>🚕 Share Taxi Booking</h2>
-<form id="bookingForm">
-<label>Travel Date<input id="date" type="date" required></label>
-<label>Pickup Location<input id="pickup" type="text" placeholder="Example: Chennai Airport" required></label>
-<label>Drop Location<input id="drop" type="text" placeholder="Enter any town / location" required></label>
-<label>Passengers<input id="passengers" type="number" min="1" max="6" value="1" required></label>
-<label>Pickup Time<input id="time" type="time" required></label>
-<label>Name<input id="name" type="text" required></label>
-<label>Mobile<input id="mobile" type="tel" inputmode="numeric" maxlength="10" placeholder="10-digit mobile" required></label>
-<div class="fare"><span>Share Taxi Fare</span><b id="fare">Enter destination</b></div>
-<button type="button" id="mapBtn">🗺️ OPEN GOOGLE MAPS</button>
-<button type="submit">💬 BOOK ON WHATSAPP</button>
-</form></section>
-</main>
-<footer>© 2026 IFRAH CABS • 24/7 Share Taxi Booking</footer>
-<script src="script.js"></script>
-</body></html>
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>IFRAH CABS</title>
+<style>*{box-sizing:border-box}body{margin:0;font-family:Arial;background:#f4f6f9;color:#172033}.top{position:sticky;top:0;z-index:9;background:#07101f;padding:12px 16px;display:flex;justify-content:space-between;align-items:center}.logo{color:white;font-weight:800;font-size:21px}.book{background:white;color:#07101f;text-decoration:none;font-weight:800;padding:11px 17px;border-radius:24px}.hero{background:#0b1426;color:white;text-align:center;padding:40px 18px}.hero h1{font-size:40px;margin:0 0 14px}.hero p{font-size:19px}.phone{font-size:22px;font-weight:700}section{max-width:720px;margin:25px auto;padding:0 16px}.card{background:white;border-radius:24px;padding:25px 18px;box-shadow:0 5px 20px #0001}h2{font-size:28px}.fare{display:flex;justify-content:space-between;gap:10px;border:2px solid #e1e4e8;border-radius:16px;padding:18px;margin:12px 0}.route{font-size:19px}.price{font-size:24px;font-weight:800;white-space:nowrap}label{display:block;font-weight:700;margin:14px 0 6px}input{width:100%;padding:14px;border:1px solid #ccd2da;border-radius:11px;font-size:16px}button{width:100%;margin-top:20px;padding:15px;border:0;border-radius:12px;background:#07101f;color:white;font-size:17px;font-weight:800}</style></head><body>
+<header class="top"><div class="logo">IFRAH CABS</div><a class="book" href="#booking">BOOK NOW 🚕</a></header>
+<div class="hero"><h1>IFRAH CABS</h1><p>SHARE TAXI • SAFE • RELIABLE • ON TIME</p><div class="phone">📞 8940694977</div></div>
+<section><div class="card"><h2>Popular Share Taxi Fare</h2>
+<div class="fare"><div class="route">Chennai Airport →<br>Sirkali</div><div class="price">₹3,000</div></div>
+<div class="fare"><div class="route">Chennai Airport →<br>Chidambaram</div><div class="price">₹3,000</div></div>
+<div class="fare"><div class="route">Chennai Airport →<br>Karaikal</div><div class="price">₹3,500</div></div>
+<div class="fare"><div class="route">Chennai Airport →<br>Mayiladuthurai</div><div class="price">₹3,500</div></div><p>Service available in nearby areas around these destinations.</p></div></section>
+<section id="booking"><div class="card"><h2>Book Share Taxi</h2>
+<label>Travel Date</label><input id="date" type="date"><label>Pickup Location</label><input id="pickup" placeholder="Enter pickup location"><label>Drop Location</label><input id="drop" placeholder="Enter any town / location"><label>Passengers</label><input id="passengers" type="number" min="1" value="1"><label>Pickup Time</label><input id="time" type="time"><label>Passenger Name</label><input id="name" placeholder="Enter your name"><label>Mobile Number</label><input id="mobile" type="tel" placeholder="Enter mobile number"><button onclick="book()">BOOK VIA WHATSAPP</button></div></section>
+<script type="module">
+import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {getFirestore,collection,addDoc,serverTimestamp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+const firebaseConfig = {
+  apiKey: "AIzaSyD2yBDsxqzRmHzXy-G9r30UuNSquDVmZYM",
+  authDomain: "ifrah-cabs.firebaseapp.com",
+  projectId: "ifrah-cabs",
+  storageBucket: "ifrah-cabs.firebasestorage.app",
+  messagingSenderId: "1058171424992",
+  appId: "1:1058171424992:web:08cfe92a8ab95f014ec085"
+};
+const db=getFirestore(initializeApp(firebaseConfig));
+window.book=async()=>{let date=document.getElementById("date").value,pickup=document.getElementById("pickup").value.trim(),drop=document.getElementById("drop").value.trim(),passengers=document.getElementById("passengers").value,time=document.getElementById("time").value,name=document.getElementById("name").value.trim(),mobile=document.getElementById("mobile").value.trim();if(!date||!pickup||!drop||!name||!mobile)return alert("Please fill Date, Pickup, Drop, Name and Mobile.");let route="https://www.google.com/maps/dir/?api=1&origin="+encodeURIComponent(pickup)+"&destination="+encodeURIComponent(drop);try{await addDoc(collection(db,"bookings"),{date,pickup,drop,passengers:Number(passengers),time,name,mobile,status:"New",createdAt:serverTimestamp()})}catch(e){return alert("Booking could not be saved. Check Firebase Firestore rules.")}let msg=`IFRAH CABS - SHARE TAXI BOOKING\n\nTravel Date: ${date}\nPickup: ${pickup}\nDrop: ${drop}\nPassengers: ${passengers}\nPickup Time: ${time||"Not specified"}\nName: ${name}\nMobile: ${mobile}\n\nGoogle Maps Route:\n${route}`;location.href="https://wa.me/918940694977?text="+encodeURIComponent(msg)};
+</script></body></html>
