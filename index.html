@@ -1,67 +1,37 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>IFRAH CABS | Share Taxi</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IFRAH CABS - Share Taxi</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header class="hero">
-  <div class="wrap">
-    <div class="brand">IFRAH CABS</div>
-    <p>SHARE TAXI • SAFE • RELIABLE • ON TIME</p>
-    <a class="call" href="tel:8940694977">📞 8940694977</a>
-  </div>
-</header>
+<header><h1>IFRAH CABS</h1><p>SHARE TAXI • SAFE • RELIABLE • ON TIME</p><a href="tel:8940694977">📞 8940694977</a></header>
+<main>
+<section><h2>Popular Share Taxi Fare</h2>
+<div class="fares">
+<div>Chennai Airport → Sirkali <b>₹3,000</b></div>
+<div>Chennai Airport → Chidambaram <b>₹3,000</b></div>
+<div>Chennai Airport → Karaikal <b>₹3,500</b></div>
+<div>Chennai Airport → Mayiladuthurai <b>₹3,500</b></div>
+</div>
+<p>Service available in nearby areas around Sirkali, Chidambaram, Karaikal and Mayiladuthurai.</p></section>
 
-<main class="wrap">
-  <section class="intro">
-    <h1>Chennai Airport Share Taxi</h1>
-    <p>Comfortable share taxi service from Chennai Airport to your town.</p>
-  </section>
-
-  <section class="card">
-    <h2>Popular Share Taxi Fare</h2>
-    <div class="fares">
-      <div><b>Chennai Airport → Sirkali</b><strong>₹3,000</strong></div>
-      <div><b>Chennai Airport → Chidambaram</b><strong>₹3,000</strong></div>
-      <div><b>Chennai Airport → Karaikal</b><strong>₹3,500</strong></div>
-      <div><b>Chennai Airport → Mayiladuthurai</b><strong>₹3,500</strong></div>
-    </div>
-    <p class="note">Service available in nearby areas around Sirkali, Chidambaram, Karaikal and Mayiladuthurai. Contact us for pickup/drop availability and final fare.</p>
-  </section>
-
-  <section class="card">
-    <h2>🚕 Book Your Share Taxi</h2>
-    <form id="bookingForm">
-      <label>Travel Date<input type="date" id="date" required></label>
-      <label>Pickup Location<input id="pickup" placeholder="Example: Chennai Airport" required></label>
-      <label>Drop Location
-        <select id="drop" required>
-          <option value="">Select destination</option>
-          <option value="Sirkali">Sirkali</option>
-          <option value="Chidambaram">Chidambaram</option>
-          <option value="Karaikal">Karaikal</option>
-          <option value="Mayiladuthurai">Mayiladuthurai</option>
-        </select>
-      </label>
-      <label>Passengers<input type="number" id="passengers" min="1" max="6" value="1" required></label>
-      <label>Pickup Time<input type="time" id="time" required></label>
-      <label>Name<input id="name" required></label>
-      <label>Mobile<input id="mobile" inputmode="numeric" maxlength="10" pattern="[0-9]{10}" required></label>
-
-      <div class="selected-fare">
-        <span>Selected Fare</span><strong id="fare">Select destination</strong>
-      </div>
-
-      <button type="button" id="maps">🗺️ OPEN ROUTE IN GOOGLE MAPS</button>
-      <button type="submit">💬 SEND BOOKING ON WHATSAPP</button>
-    </form>
-  </section>
+<section><h2>🚕 Share Taxi Booking</h2>
+<form id="bookingForm">
+<label>Travel Date<input id="date" type="date" required></label>
+<label>Pickup Location<input id="pickup" type="text" placeholder="Example: Chennai Airport" required></label>
+<label>Drop Location<input id="drop" type="text" placeholder="Enter any town / location" required></label>
+<label>Passengers<input id="passengers" type="number" min="1" max="6" value="1" required></label>
+<label>Pickup Time<input id="time" type="time" required></label>
+<label>Name<input id="name" type="text" required></label>
+<label>Mobile<input id="mobile" type="tel" inputmode="numeric" maxlength="10" placeholder="10-digit mobile" required></label>
+<div class="fare"><span>Share Taxi Fare</span><b id="fare">Enter destination</b></div>
+<button type="button" id="mapBtn">🗺️ OPEN GOOGLE MAPS</button>
+<button type="submit">💬 BOOK ON WHATSAPP</button>
+</form></section>
 </main>
-
-<footer>© 2026 IFRAH CABS • Share Taxi • 24/7 Booking</footer>
+<footer>© 2026 IFRAH CABS • 24/7 Share Taxi Booking</footer>
 <script src="script.js"></script>
-</body>
-</html>
+</body></html>
