@@ -1,0 +1,36 @@
+<!-- Service Type -->
+<label for="service">Service Type</label>
+<select id="service" name="service" onchange="showVehicleType()" required>
+  <option value="Share Taxi">Share Taxi</option>
+  <option value="One Way">One Way</option>
+</select>
+
+<!-- Vehicle Type - One Way மட்டும் -->
+<div id="vehicleBox" style="display:none;">
+  <label for="vehicle">Vehicle Type</label>
+  <select id="vehicle" name="vehicle">
+    <option value="">Select Vehicle</option>
+    <option value="Sedan">Sedan</option>
+    <option value="SUV">SUV</option>
+  </select>
+</div>
+
+<script>
+function showVehicleType() {
+  const service = document.getElementById("service").value;
+  const vehicleBox = document.getElementById("vehicleBox");
+  const vehicle = document.getElementById("vehicle");
+
+  if (service === "One Way") {
+    vehicleBox.style.display = "block";
+    vehicle.required = true;
+  } else {
+    vehicleBox.style.display = "none";
+    vehicle.required = false;
+    vehicle.value = "";
+  }
+}
+
+// Page load
+showVehicleType();
+</script>
