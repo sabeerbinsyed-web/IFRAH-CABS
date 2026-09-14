@@ -1,121 +1,1295 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>IFRAH CABS Admin</title>
+
+<title>IFRAH CABS ADMIN</title>
+
+<meta name="theme-color" content="#111827">
+
 <style>
-body{font-family:Arial;margin:0;background:#f5f7fa;color:#172033}
-header{background:#111827;color:#fff;padding:18px;display:flex;justify-content:space-between}
-main{max-width:1100px;margin:auto;padding:20px}
-.card{background:#fff;border-radius:14px;padding:18px;margin-bottom:16px;box-shadow:0 4px 16px #0001}
-input,button{padding:11px;border-radius:8px;border:1px solid #ccd3df}
-button{cursor:pointer;margin:4px}
-.hidden{display:none}
-.booking{border-top:1px solid #ddd;padding:15px 0}
-.status{font-weight:bold}
-</style>
-</head>
-<body>
-<header><b>IFRAH CABS ADMIN</b><button id="logout">Logout</button></header>
-<main>
-<div id="login" class="card">
-<h2>Admin Login</h2>
-<input id="email" type="email" placeholder="Email"><br><br>
-<input id="password" type="password" placeholder="Password"><br>
-<button id="loginBtn">Login</button>
-<p id="loginMsg"></p>
-</div>
 
-<div id="panel" class="hidden">
-<div class="card">
-<b>Total:</b> <span id="total">0</span>
-&nbsp;&nbsp; <b>Pending:</b> <span id="pending">0</span>
-</div>
-<div id="bookings"></div>
-</div>
-</main>
-
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-import { getFirestore, collection, onSnapshot, doc, updateDoc, deleteDoc, query, orderBy } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyD2yBDsxqzHmHzXy-G9r30uUuNSquDVmZYM",
-  authDomain: "ifrah-cabs.firebaseapp.com",
-  projectId: "ifrah-cabs",
-  storageBucket: "ifrah-cabs.firebasestorage.app",
-  messagingSenderId: "1058171424992",
-  appId: "1:1058171424992:web:08cfe92a8ab95f014ec085"
-};
-
-const login = document.getElementById("login");
-const panel = document.getElementById("panel");
-const list = document.getElementById("bookings");
-
-document.getElementById("loginBtn").onclick = async () => {
-  try {
-    await signInWithEmailAndPassword(
-      auth,
-      document.getElementById("email").value,
-      document.getElementById("password").value
-    );
-  } catch(e) {
-    document.getElementById("loginMsg").textContent = e.message;
-  }
-};
-
-document.getElementById("logout").onclick = () => signOut(auth);
-
-onAuthStateChanged(auth, user => {
-  login.classList.toggle("hidden", !!user);
-  panel.classList.toggle("hidden", !user);
-  if (user) loadBookings();
-});
-
-function loadBookings() {
-  const q = query(collection(db,"bookings"), orderBy("createdAt","desc"));
-  onSnapshot(q, snap => {
-    let pending = 0;
-    list.innerHTML = "";
-    document.getElementById("total").textContent = snap.size;
-
-    snap.forEach(item => {
-      const b = item.data();
-      if ((b.status || "Pending") === "Pending") pending++;
-
-      const div = document.createElement("div");
-      div.className = "booking";
-      div.innerHTML = `
-        <b>${b.name || ""}</b> — ${b.serviceType || ""}<br>
-        Vehicle: ${b.vehicleType || "—"}<br>
-        ${b.travelDate || ""} ${b.pickupTime || ""}<br>
-        ${b.pickup || ""} → ${b.drop || ""}<br>
-        Passengers: ${b.passengers || ""} | Mobile: ${b.mobile || ""}<br>
-        <span class="status">Status: ${b.status || "Pending"}</span><br>
-        <button onclick="setStatus('${item.id}','Confirmed')">Confirm</button>
-        <button onclick="setStatus('${item.id}','Cancelled')">Cancel</button>
-        <button onclick="wa('${b.mobile || ""}','${b.name || ""}')">WhatsApp</button>
-        <button onclick="removeBooking('${item.id}')">Delete</button>
-      `;
-      list.appendChild(div);
-    });
-    document.getElementById("pending").textContent = pending;
-  });
+*{
+  box-sizing:border-box;
 }
 
-window.setStatus = async (id,status) => {
-  await updateDoc(doc(db,"bookings",id), {status});
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f3f5f9;
+  color:#172033;
+}
+
+/* HEADER */
+
+header{
+  background:#111827;
+  color:white;
+  padding:16px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  position:sticky;
+  top:0;
+  z-index:100;
+}
+
+.logo{
+  font-size:22px;
+  font-weight:800;
+}
+
+.logout{
+  display:none;
+  background:white;
+  color:#111827;
+  border:0;
+  padding:9px 16px;
+  border-radius:20px;
+  font-weight:700;
+}
+
+/* MAIN */
+
+main{
+  max-width:1100px;
+  margin:auto;
+  padding:25px 15px;
+}
+
+/* CARD */
+
+.card{
+  background:white;
+  border-radius:18px;
+  padding:22px;
+  box-shadow:0 5px 20px #00000012;
+  margin-bottom:20px;
+}
+
+/* LOGIN */
+
+.login-card{
+  max-width:450px;
+  margin:60px auto;
+}
+
+.login-card h1{
+  margin-top:0;
+  text-align:center;
+}
+
+.login-sub{
+  text-align:center;
+  color:#667085;
+  margin-bottom:25px;
+}
+
+label{
+  display:block;
+  font-weight:700;
+  margin:12px 0 6px;
+}
+
+input{
+  width:100%;
+  padding:14px;
+  border:1px solid #d1d5db;
+  border-radius:10px;
+  font-size:16px;
+}
+
+input:focus{
+  outline:none;
+  border-color:#111827;
+}
+
+.login-btn,
+.refresh-btn{
+  width:100%;
+  border:0;
+  background:#111827;
+  color:white;
+  padding:14px;
+  border-radius:10px;
+  font-size:16px;
+  font-weight:800;
+  margin-top:15px;
+}
+
+.login-btn:disabled{
+  opacity:.6;
+}
+
+.message{
+  margin-top:15px;
+  text-align:center;
+  font-weight:700;
+}
+
+.error{
+  color:#dc2626;
+}
+
+.success{
+  color:#15803d;
+}
+
+/* DASHBOARD */
+
+#dashboard{
+  display:none;
+}
+
+.dashboard-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+  flex-wrap:wrap;
+}
+
+.dashboard-title h1{
+  margin:0;
+}
+
+.refresh-btn{
+  width:auto;
+  padding:11px 18px;
+  margin:0;
+}
+
+/* STATS */
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+  margin-bottom:20px;
+}
+
+.stat{
+  background:white;
+  padding:20px;
+  border-radius:16px;
+  box-shadow:0 5px 20px #00000010;
+}
+
+.stat-title{
+  color:#667085;
+  font-size:14px;
+  font-weight:700;
+}
+
+.stat-number{
+  font-size:30px;
+  font-weight:800;
+  margin-top:7px;
+}
+
+/* BOOKING */
+
+.booking{
+  background:white;
+  border-radius:18px;
+  padding:20px;
+  margin-bottom:16px;
+  box-shadow:0 5px 20px #00000010;
+  border-left:5px solid #111827;
+}
+
+.booking-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+
+.booking-title{
+  font-size:20px;
+  font-weight:800;
+}
+
+.booking-id{
+  font-size:12px;
+  color:#667085;
+  word-break:break-all;
+}
+
+.row{
+  padding:9px 0;
+  border-bottom:1px solid #edf0f3;
+  line-height:1.5;
+}
+
+.row:last-child{
+  border-bottom:0;
+}
+
+.label{
+  font-weight:800;
+}
+
+.phone{
+  color:#2563eb;
+  text-decoration:none;
+  font-weight:700;
+}
+
+.whatsapp{
+  color:#159447;
+  text-decoration:none;
+  font-weight:700;
+}
+
+/* STATUS */
+
+.status{
+  display:inline-block;
+  padding:6px 11px;
+  border-radius:20px;
+  font-size:13px;
+  font-weight:800;
+}
+
+.status-pending{
+  background:#fff7d6;
+  color:#92400e;
+}
+
+.status-confirmed{
+  background:#dcfce7;
+  color:#166534;
+}
+
+.status-cancelled{
+  background:#fee2e2;
+  color:#991b1b;
+}
+
+.status-select{
+  padding:9px;
+  border:1px solid #d1d5db;
+  border-radius:8px;
+  font-weight:700;
+}
+
+/* ACTIONS */
+
+.actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:15px;
+}
+
+.actions button{
+  width:auto;
+  padding:10px 14px;
+  border:0;
+  border-radius:9px;
+  font-weight:700;
+}
+
+.save-btn{
+  background:#111827;
+  color:white;
+}
+
+.delete-btn{
+  background:#fee2e2;
+  color:#991b1b;
+}
+
+/* EMPTY */
+
+.empty{
+  text-align:center;
+  padding:45px 20px;
+  color:#667085;
+}
+
+.loading{
+  text-align:center;
+  padding:40px;
+  color:#667085;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+  header{
+    padding:13px 15px;
+  }
+
+  .logo{
+    font-size:19px;
+  }
+
+  main{
+    padding:18px 12px;
+  }
+
+  .login-card{
+    margin:30px auto;
+  }
+
+  .stats{
+    grid-template-columns:1fr;
+  }
+
+  .dashboard-title h1{
+    font-size:25px;
+  }
+
+  .refresh-btn{
+    width:100%;
+  }
+
+  .booking{
+    padding:17px;
+  }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- HEADER -->
+
+<header>
+
+  <div class="logo">
+    🚕 IFRAH CABS ADMIN
+  </div>
+
+  <button
+    id="logoutBtn"
+    class="logout">
+    Logout
+  </button>
+
+</header>
+
+
+
+<main>
+
+
+<!-- =====================
+     LOGIN
+     ===================== -->
+
+<section
+  id="loginSection"
+  class="card login-card">
+
+  <h1>Admin Login</h1>
+
+  <div class="login-sub">
+    IFRAH CABS Booking Management
+  </div>
+
+  <label for="email">
+    Admin Email
+  </label>
+
+  <input
+    type="email"
+    id="email"
+    placeholder="Enter admin email"
+    autocomplete="email"
+  >
+
+  <label for="password">
+    Password
+  </label>
+
+  <input
+    type="password"
+    id="password"
+    placeholder="Enter password"
+    autocomplete="current-password"
+  >
+
+  <button
+    id="loginBtn"
+    class="login-btn">
+
+    LOGIN
+
+  </button>
+
+  <div
+    id="loginMessage"
+    class="message">
+  </div>
+
+</section>
+
+
+
+<!-- =====================
+     DASHBOARD
+     ===================== -->
+
+<section id="dashboard">
+
+
+  <!-- TITLE -->
+
+  <div class="card dashboard-title">
+
+    <h1>
+      📋 Bookings
+    </h1>
+
+    <button
+      id="refreshBtn"
+      class="refresh-btn">
+
+      🔄 Refresh
+
+    </button>
+
+  </div>
+
+
+
+  <!-- STATS -->
+
+  <div class="stats">
+
+    <div class="stat">
+
+      <div class="stat-title">
+        TOTAL BOOKINGS
+      </div>
+
+      <div
+        id="totalCount"
+        class="stat-number">
+        0
+      </div>
+
+    </div>
+
+
+    <div class="stat">
+
+      <div class="stat-title">
+        PENDING
+      </div>
+
+      <div
+        id="pendingCount"
+        class="stat-number">
+        0
+      </div>
+
+    </div>
+
+
+    <div class="stat">
+
+      <div class="stat-title">
+        CONFIRMED
+      </div>
+
+      <div
+        id="confirmedCount"
+        class="stat-number">
+        0
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- BOOKINGS -->
+
+  <div id="bookingsContainer">
+
+    <div class="loading">
+      Loading bookings...
+    </div>
+
+  </div>
+
+
+</section>
+
+</main>
+
+
+
+<!-- =========================
+     FIREBASE
+     ========================= -->
+
+<script type="module">
+
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  query,
+  orderBy,
+  doc,
+  updateDoc,
+  deleteDoc
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+
+/* =========================
+   FIREBASE CONFIG
+   ========================= */
+
+const firebaseConfig = {
+
+  apiKey:
+    "AIzaSyD2yBDsxqzHmHzXy-G9r30uUuNSquDVmZYM",
+
+  authDomain:
+    "ifrah-cabs.firebaseapp.com",
+
+  projectId:
+    "ifrah-cabs",
+
+  storageBucket:
+    "ifrah-cabs.firebasestorage.app",
+
+  messagingSenderId:
+    "1058171424992",
+
+  appId:
+    "1:1058171424992:web:08cfe92a8ab95f014ec085"
+
 };
-window.removeBooking = async id => {
-  if(confirm("Delete this booking?")) await deleteDoc(doc(db,"bookings",id));
-};
-window.wa = (mobile,name) => {
-  const n = (mobile || "").replace(/\D/g,"");
-  const phone = n.length === 10 ? "91"+n : n;
-  window.open("https://wa.me/"+phone+"?text="+encodeURIComponent("Hello "+name+", IFRAH CABS booking update."),"_blank");
-};
+
+
+
+/* =========================
+   INITIALIZE
+   ========================= */
+
+const app =
+  initializeApp(firebaseConfig);
+
+
+/* IMPORTANT:
+   auth is created here
+*/
+
+const auth =
+  getAuth(app);
+
+
+const db =
+  getFirestore(app);
+
+
+
+/* =========================
+   ELEMENTS
+   ========================= */
+
+const loginSection =
+  document.getElementById("loginSection");
+
+const dashboard =
+  document.getElementById("dashboard");
+
+const logoutBtn =
+  document.getElementById("logoutBtn");
+
+const loginBtn =
+  document.getElementById("loginBtn");
+
+const refreshBtn =
+  document.getElementById("refreshBtn");
+
+const emailInput =
+  document.getElementById("email");
+
+const passwordInput =
+  document.getElementById("password");
+
+const loginMessage =
+  document.getElementById("loginMessage");
+
+const bookingsContainer =
+  document.getElementById("bookingsContainer");
+
+const totalCount =
+  document.getElementById("totalCount");
+
+const pendingCount =
+  document.getElementById("pendingCount");
+
+const confirmedCount =
+  document.getElementById("confirmedCount");
+
+
+
+/* =========================
+   LOGIN
+   ========================= */
+
+loginBtn.addEventListener(
+  "click",
+  async function(){
+
+    const email =
+      emailInput.value.trim();
+
+    const password =
+      passwordInput.value;
+
+
+    if(!email || !password){
+
+      loginMessage.innerHTML =
+        '<div class="error">Please enter email and password.</div>';
+
+      return;
+
+    }
+
+
+    loginBtn.disabled = true;
+
+    loginBtn.textContent =
+      "LOGGING IN...";
+
+    loginMessage.innerHTML =
+      "";
+
+
+    try{
+
+      await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+      loginMessage.innerHTML =
+        '<div class="success">Login successful.</div>';
+
+    }
+
+    catch(error){
+
+      console.error(error);
+
+      loginMessage.innerHTML =
+        '<div class="error">Login failed: '
+        +
+        (error.code || error.message)
+        +
+        '</div>';
+
+    }
+
+    finally{
+
+      loginBtn.disabled =
+        false;
+
+      loginBtn.textContent =
+        "LOGIN";
+
+    }
+
+  }
+);
+
+
+
+/* ENTER KEY */
+
+passwordInput.addEventListener(
+  "keydown",
+  function(event){
+
+    if(event.key === "Enter"){
+
+      loginBtn.click();
+
+    }
+
+  }
+);
+
+
+
+/* =========================
+   AUTH STATE
+   ========================= */
+
+onAuthStateChanged(
+  auth,
+  async function(user){
+
+    if(user){
+
+      loginSection.style.display =
+        "none";
+
+      dashboard.style.display =
+        "block";
+
+      logoutBtn.style.display =
+        "block";
+
+      await loadBookings();
+
+    }
+
+    else{
+
+      loginSection.style.display =
+        "block";
+
+      dashboard.style.display =
+        "none";
+
+      logoutBtn.style.display =
+        "none";
+
+    }
+
+  }
+);
+
+
+
+/* =========================
+   LOGOUT
+   ========================= */
+
+logoutBtn.addEventListener(
+  "click",
+  async function(){
+
+    await signOut(auth);
+
+  }
+);
+
+
+
+/* =========================
+   LOAD BOOKINGS
+   ========================= */
+
+async function loadBookings(){
+
+  bookingsContainer.innerHTML =
+    '<div class="loading">Loading bookings...</div>';
+
+
+  try{
+
+    const bookingsRef =
+      collection(db,"bookings");
+
+
+    let snapshot;
+
+
+    try{
+
+      const q =
+        query(
+          bookingsRef,
+          orderBy(
+            "createdAt",
+            "desc"
+          )
+        );
+
+      snapshot =
+        await getDocs(q);
+
+    }
+
+    catch(error){
+
+      console.log(
+        "Sorting unavailable. Loading normally."
+      );
+
+      snapshot =
+        await getDocs(bookingsRef);
+
+    }
+
+
+    totalCount.textContent =
+      snapshot.size;
+
+
+    let pending = 0;
+    let confirmed = 0;
+
+
+    snapshot.forEach(
+      function(document){
+
+        const data =
+          document.data();
+
+        const status =
+          data.status || "Pending";
+
+
+        if(status === "Pending"){
+          pending++;
+        }
+
+        if(status === "Confirmed"){
+          confirmed++;
+        }
+
+      }
+    );
+
+
+    pendingCount.textContent =
+      pending;
+
+    confirmedCount.textContent =
+      confirmed;
+
+
+    if(snapshot.empty){
+
+      bookingsContainer.innerHTML =
+        '<div class="card empty">No bookings found.</div>';
+
+      return;
+
+    }
+
+
+    bookingsContainer.innerHTML =
+      "";
+
+
+    snapshot.forEach(
+      function(document){
+
+        createBookingCard(
+          document.id,
+          document.data()
+        );
+
+      }
+    );
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+    bookingsContainer.innerHTML =
+
+      '<div class="card">' +
+
+      '<div class="error">' +
+
+      'Firestore Error:<br>' +
+
+      (error.code || error.message) +
+
+      '</div>' +
+
+      '</div>';
+
+  }
+
+}
+
+
+
+/* =========================
+   CREATE BOOKING CARD
+   ========================= */
+
+function createBookingCard(
+  id,
+  data
+){
+
+  const booking =
+    document.createElement("div");
+
+  booking.className =
+    "booking";
+
+
+  const status =
+    data.status || "Pending";
+
+
+  const statusClass =
+    status.toLowerCase();
+
+
+  booking.innerHTML = `
+
+    <div class="booking-header">
+
+      <div>
+
+        <div class="booking-title">
+          🚕 ${escapeHtml(data.name || "Customer")}
+        </div>
+
+        <div class="booking-id">
+          Booking ID: ${escapeHtml(id)}
+        </div>
+
+      </div>
+
+      <span class="status status-${statusClass}">
+        ${escapeHtml(status)}
+      </span>
+
+    </div>
+
+
+    <div class="row">
+      <span class="label">Service:</span>
+      ${escapeHtml(data.service || "")}
+    </div>
+
+
+    ${
+      data.vehicle
+      ?
+      `
+      <div class="row">
+        <span class="label">Vehicle:</span>
+        ${escapeHtml(data.vehicle)}
+      </div>
+      `
+      :
+      ""
+    }
+
+
+    <div class="row">
+      <span class="label">Travel Date:</span>
+      ${escapeHtml(data.date || "")}
+    </div>
+
+
+    <div class="row">
+      <span class="label">Pickup:</span>
+      ${escapeHtml(data.pickup || "")}
+    </div>
+
+
+    <div class="row">
+      <span class="label">Drop:</span>
+      ${escapeHtml(data.drop || "")}
+    </div>
+
+
+    <div class="row">
+      <span class="label">Passengers:</span>
+      ${escapeHtml(String(data.passengers || ""))}
+    </div>
+
+
+    <div class="row">
+      <span class="label">Pickup Time:</span>
+      ${escapeHtml(data.time || "")}
+    </div>
+
+
+    <div class="row">
+
+      <span class="label">Mobile:</span>
+
+      <a
+        class="phone"
+        href="tel:${escapeHtml(data.mobile || "")}">
+
+        ${escapeHtml(data.mobile || "")}
+
+      </a>
+
+    </div>
+
+
+    <div class="row">
+
+      <span class="label">WhatsApp:</span>
+
+      <a
+        class="whatsapp"
+        target="_blank"
+        href="https://wa.me/91${escapeHtml(data.mobile || "")}">
+
+        💬 Open WhatsApp
+
+      </a>
+
+    </div>
+
+
+    <div class="row">
+
+      <span class="label">Status:</span>
+
+      <select
+        class="status-select"
+        id="status-${id}">
+
+        <option value="Pending"
+          ${status === "Pending" ? "selected" : ""}>
+          Pending
+        </option>
+
+        <option value="Confirmed"
+          ${status === "Confirmed" ? "selected" : ""}>
+          Confirmed
+        </option>
+
+        <option value="Cancelled"
+          ${status === "Cancelled" ? "selected" : ""}>
+          Cancelled
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div class="actions">
+
+      <button
+        class="save-btn"
+        id="save-${id}">
+
+        💾 Save Status
+
+      </button>
+
+
+      <button
+        class="delete-btn"
+        id="delete-${id}">
+
+        🗑️ Delete
+
+      </button>
+
+    </div>
+
+  `;
+
+
+  bookingsContainer.appendChild(
+    booking
+  );
+
+
+  /* SAVE STATUS */
+
+  document
+    .getElementById(`save-${id}`)
+    .addEventListener(
+      "click",
+      function(){
+
+        saveStatus(id);
+
+      }
+    );
+
+
+  /* DELETE */
+
+  document
+    .getElementById(`delete-${id}`)
+    .addEventListener(
+      "click",
+      function(){
+
+        deleteBooking(id);
+
+      }
+    );
+
+}
+
+
+
+/* =========================
+   SAVE STATUS
+   ========================= */
+
+async function saveStatus(id){
+
+  const select =
+    document.getElementById(
+      `status-${id}`
+    );
+
+  const newStatus =
+    select.value;
+
+
+  try{
+
+    await updateDoc(
+      doc(
+        db,
+        "bookings",
+        id
+      ),
+      {
+        status: newStatus
+      }
+    );
+
+
+    alert(
+      "Booking status updated."
+    );
+
+
+    await loadBookings();
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+    alert(
+      "Update failed: "
+      +
+      (error.code || error.message)
+    );
+
+  }
+
+}
+
+
+
+/* =========================
+   DELETE BOOKING
+   ========================= */
+
+async function deleteBooking(id){
+
+  const confirmDelete =
+    confirm(
+      "Delete this booking?"
+    );
+
+
+  if(!confirmDelete){
+    return;
+  }
+
+
+  try{
+
+    await deleteDoc(
+      doc(
+        db,
+        "bookings",
+        id
+      )
+    );
+
+
+    alert(
+      "Booking deleted."
+    );
+
+
+    await loadBookings();
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+    alert(
+      "Delete failed: "
+      +
+      (error.code || error.message)
+    );
+
+  }
+
+}
+
+
+
+/* =========================
+   REFRESH
+   ========================= */
+
+refreshBtn.addEventListener(
+  "click",
+  loadBookings
+);
+
+
+
+/* =========================
+   HTML SAFE TEXT
+   ========================= */
+
+function escapeHtml(value){
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
 </script>
+
 </body>
 </html>
