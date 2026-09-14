@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IFRAH CABS - Admin</title><link rel="stylesheet" href="style.css">
+</head>
+<body>
+<section class="booking admin">
+<h1>IFRAH CABS — Admin Booking Panel</h1>
+<div id="loginBox">
+  <input id="email" type="email" placeholder="Admin Email">
+  <input id="password" type="password" placeholder="Password">
+  <button class="primary" id="login">ADMIN LOGIN</button>
+  <p>Use the Email/Password account created in Firebase Authentication.</p>
+</div>
+<div id="panel" hidden>
+  <button class="secondary" id="logout">Logout</button>
+  <h2>Bookings</h2><div id="bookings">Loading...</div>
+</div>
+</section>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-auth.js";
+import { getFirestore, collection, query, orderBy, onSnapshot, doc, updateDoc } from "https://www.gstatic.com/firebasejs/12.2.1/firebase-firestore.js";
+const app=initializeApp({
+ apiKey:"AIzaSyD2yBDsxqzRmHzXy-G9r30UuNSquDVmZYM",
+ authDomain:"ifrah-cabs.firebaseapp.com", projectId:"ifrah-cabs",
+ storageBucket:"ifrah-cabs.firebasestorage.app", messagingSenderId:"1058171424992",
+ appId:"1:1058171424992:web:08cfe92a8ab95f014ec085"
+});
+const auth=getAuth(app), db=getFirestore(app);
+const loginBox=document.getElementById("loginBox"), panel=document.getElementById("panel"), list=document.getElementById("bookings");
+document.getElementById("login").onclick=async()=>{
+ try{await signInWithEmailAndPassword(auth,email.value,password.value)}catch(e){alert("Login failed: "+e.message)}
+};
+document.getElementById("logout").onclick=()=>signOut(auth);
+auth.onAuthStateChanged(user=>{
+ loginBox.hidden=!!user; panel.hidden=!user;
+ if(user){
+   const q=query(collection(db,"bookings"),orderBy("createdAt","desc"));
+   onSnapshot(q,snap=>{
+    list.innerHTML="";
+    snap.forEach(x=>{
+      const b=x.data(), div=document.createElement("div"); div.className="booking-item";
+      div.innerHTML=`<b>${b.name||""}</b> • ${b.mobile||""}<br>${b.date||""} ${b.time||""}<br>${b.pickup||""} → ${b.drop||""}<br>Passengers: ${b.passengers||""} • Fare: ${b.fare||""}<br>Status: <b>${b.status||"New"}</b><br>
+      <button data-id="${x.id}" data-status="Confirmed">Confirm</button>
+      <button data-id="${x.id}" data-status="Cancelled">Cancel</button>`;
+      list.appendChild(div);
+    });
+    list.querySelectorAll("button").forEach(btn=>btn.onclick=()=>updateDoc(doc(db,"bookings",btn.dataset.id),{status:btn.dataset.status}));
+   });
+ }
+});
+</script>
+</body>
+</html>
