@@ -1,23 +1,53 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>IFRAH CABS Admin</title>
-<style>body{margin:0;font-family:Arial;background:#f3f5f8;color:#172033}header{background:#07101f;color:white;padding:18px;font-size:22px;font-weight:800}main{max-width:900px;margin:auto;padding:18px}.card{background:white;padding:18px;border-radius:18px;margin:14px 0;box-shadow:0 4px 16px #0001}input{width:100%;padding:12px;margin:7px 0;box-sizing:border-box;border:1px solid #ccd2da;border-radius:10px}button,.wa{padding:11px 15px;border:0;border-radius:10px;margin:5px 5px 0 0;font-weight:700;text-decoration:none;display:inline-block}.login{max-width:420px;margin:35px auto}.wa{background:#128c7e;color:white}.ok{background:#198754;color:white}.cancel{background:#dc3545;color:white}.muted{color:#667085}</style></head><body><header>IFRAH CABS — WhatsApp Admin</header><main>
-<div id="login" class="card login"><h2>Admin Login</h2><input id="email" type="email" placeholder="Admin email"><input id="password" type="password" placeholder="Password"><button onclick="login()">LOGIN</button><p class="muted">Use your Firebase admin account.</p></div>
-<div id="panel" style="display:none"><button onclick="logout()">LOGOUT</button><h2>Bookings</h2><div id="list">Loading...</div></div></main>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IFRAH CABS Admin</title>
+<style>
+body{margin:0;font-family:Arial,sans-serif;background:#f4f6f8;color:#17202a}header{background:#111827;color:#fff;padding:18px;display:flex;justify-content:space-between;align-items:center}button{border:0;border-radius:9px;padding:10px 14px;font-weight:700}.logout,.delete{background:#dc2626;color:#fff}.wrap{max-width:1100px;margin:auto;padding:18px}.card{background:#fff;border-radius:15px;padding:20px;margin-bottom:18px;box-shadow:0 3px 15px #0001}.login{max-width:400px;margin:60px auto}input{width:100%;padding:13px;margin:7px 0 14px;border:1px solid #ccd3da;border-radius:9px;box-sizing:border-box;font-size:16px}.primary{width:100%;background:#1677ff;color:#fff}.error{color:#d92d20}.hidden{display:none}.table{overflow:auto}table{width:100%;min-width:850px;border-collapse:collapse}th,td{padding:12px;border-bottom:1px solid #e5e7eb;text-align:left}th{background:#f8fafc}.actions{display:flex;gap:6px;flex-wrap:wrap}.confirm{background:#16a34a;color:#fff}.cancel{background:#f59e0b;color:#fff}.wa{background:#25d366;color:#fff}.stat{display:inline-block;background:#eef6ff;padding:10px 14px;border-radius:10px;margin-right:8px}.small{color:#667085;font-size:13px}
+</style>
+</head>
+<body>
+<div id="login" class="wrap"><div class="card login">
+<h2>🚕 IFRAH CABS</h2><p>Admin Booking Panel</p>
+<input id="email" type="email" placeholder="Admin email">
+<input id="password" type="password" placeholder="Password">
+<button class="primary" id="loginBtn">LOGIN</button><p id="err" class="error"></p>
+</div></div>
+
+<div id="app" class="hidden">
+<header><b>🚕 IFRAH CABS — BOOKINGS</b><button class="logout" id="logout">Logout</button></header>
+<div class="wrap">
+<div class="card"><span class="stat">Total: <b id="total">0</b></span><span class="stat">Pending: <b id="pending">0</b></span></div>
+<div class="card table"><table><thead><tr><th>Date/Time</th><th>Customer</th><th>Route</th><th>Passengers</th><th>Status</th><th>Action</th></tr></thead><tbody id="rows"></tbody></table></div>
+</div></div>
+
 <script type="module">
 import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import {getAuth,signInWithEmailAndPassword,onAuthStateChanged,signOut} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import {getFirestore,collection,getDocs,query,orderBy,doc,updateDoc} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-const firebaseConfig = {
-  apiKey: "AIzaSyD2yBDsxqzRmHzXy-G9r30UuNSquDVmZYM",
-  authDomain: "ifrah-cabs.firebaseapp.com",
-  projectId: "ifrah-cabs",
-  storageBucket: "ifrah-cabs.firebasestorage.app",
-  messagingSenderId: "1058171424992",
-  appId: "1:1058171424992:web:08cfe92a8ab95f014ec085"
-};
+import {getFirestore,collection,onSnapshot,doc,updateDoc,deleteDoc} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig={apiKey:"AIzaSyD2yBDsxqzRmHzXy-G9r30UuNSquDVmZYM",authDomain:"ifrah-cabs.firebaseapp.com",projectId:"ifrah-cabs",storageBucket:"ifrah-cabs.firebasestorage.app",messagingSenderId:"1058171424992",appId:"1:1058171424992:web:08cfe92a8ab95f014ec085"};
 const app=initializeApp(firebaseConfig),auth=getAuth(app),db=getFirestore(app);
-window.login=()=>signInWithEmailAndPassword(auth,document.getElementById("email").value,document.getElementById("password").value).catch(e=>alert(e.message));
-window.logout=()=>signOut(auth);
-onAuthStateChanged(auth,u=>{document.getElementById("login").style.display=u?"none":"block";document.getElementById("panel").style.display=u?"block":"none";if(u)load()});
-async function load(){let box=document.getElementById("list");box.innerHTML="";try{let snap=await getDocs(query(collection(db,"bookings"),orderBy("createdAt","desc")));if(snap.empty){box.innerHTML="<p>No bookings yet.</p>";return}snap.forEach(s=>{let b=s.data(),p=String(b.mobile||"").replace(/\D/g,""),d=document.createElement("div");d.className="card";d.innerHTML=`<h3>${b.name||""} — ${b.status||"New"}</h3><p><b>Date:</b> ${b.date||""}<br><b>Pickup:</b> ${b.pickup||""}<br><b>Drop:</b> ${b.drop||""}<br><b>Passengers:</b> ${b.passengers||""}<br><b>Time:</b> ${b.time||""}<br><b>Mobile:</b> ${b.mobile||""}</p><a class="wa" target="_blank" href="https://wa.me/${p}?text=${encodeURIComponent("Hello "+(b.name||"")+", this is IFRAH CABS regarding your Share Taxi booking.")}">WHATSAPP CUSTOMER</a><br><button class="ok" onclick="setStatus("${s.id}","Confirmed")">CONFIRM</button><button class="cancel" onclick="setStatus("${s.id}","Cancelled")">CANCEL</button>`;box.appendChild(d)})}catch(e){box.innerHTML="<p>Could not load bookings. Check Firestore rules and collection: bookings.</p>"}}
-window.setStatus=async(id,v)=>{await updateDoc(doc(db,"bookings",id),{status:v});load()};
-</script></body></html>
+const $=x=>document.getElementById(x);
+$("loginBtn").onclick=async()=>{try{await signInWithEmailAndPassword(auth,$("email").value.trim(),$("password").value)}catch(e){$("err").textContent="Login failed. Check email/password."}};
+$("logout").onclick=()=>signOut(auth);
+
+onAuthStateChanged(auth,u=>{if(u){$("login").classList.add("hidden");$("app").classList.remove("hidden");load()}else{$("app").classList.add("hidden");$("login").classList.remove("hidden")}});
+
+function safe(x){return String(x??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
+function load(){
+onSnapshot(collection(db,"bookings"),s=>{
+let a=[];s.forEach(x=>a.push({id:x.id,...x.data()}));
+a.sort((x,y)=>String(y.createdAt||"").localeCompare(String(x.createdAt||"")));
+$("total").textContent=a.length;$("pending").textContent=a.filter(x=>(x.status||"Pending")=="Pending").length;
+$("rows").innerHTML=a.map(b=>{
+let status=b.status||"Pending";
+let msg=encodeURIComponent(`IFRAH CABS BOOKING\nName: ${b.name||""}\nMobile: ${b.mobile||""}\nDate: ${b.date||""}\nTime: ${b.time||""}\nPickup: ${b.pickup||""}\nDrop: ${b.drop||""}\nPassengers: ${b.passengers||""}\nStatus: ${status}`);
+return `<tr><td><b>${safe(b.date)}</b><br>${safe(b.time)}</td><td><b>${safe(b.name)}</b><br>${safe(b.mobile)}</td><td>${safe(b.pickup)}<br>↓<br>${safe(b.drop)}</td><td>${safe(b.passengers)}</td><td>${safe(status)}</td><td><div class="actions"><button class="confirm" onclick="statusChange('${b.id}','Confirmed')">Confirm</button><button class="cancel" onclick="statusChange('${b.id}','Cancelled')">Cancel</button><a target="_blank" href="https://wa.me/91${encodeURIComponent(String(b.mobile||"").replace(/\\D/g,""))}?text=${msg}"><button class="wa">WhatsApp</button></a><button class="delete" onclick="del('${b.id}')">Delete</button></div></td></tr>`}).join("");
+})}
+window.statusChange=async(id,status)=>{try{await updateDoc(doc(db,"bookings",id),{status})}catch(e){alert("Update failed")}};
+window.del=async id=>{if(confirm("Delete this booking?"))try{await deleteDoc(doc(db,"bookings",id))}catch(e){alert("Delete failed")}};
+</script>
+</body></html>
