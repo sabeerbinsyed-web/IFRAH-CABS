@@ -13,8 +13,8 @@
 <section><h2 id="booking">🚕 Book Your Cab</h2><form id="bookingForm">
 <label>Service Type<select id="service"><option>Share Taxi</option><option>One Way</option><option>Round Trip</option></select></label>
 <label>Travel Date<input id="date" type="date" required></label>
-<label>Pickup Location<input id="pickup" placeholder="Example: Chennai Airport" required></label>
-<label>Drop Location<input id="drop" placeholder="Enter town / location" required></label>
+<div class="place-search"><label>Pickup Location<input id="pickup" type="text" placeholder="🔍 Search pickup place" autocomplete="off" required></label><div id="pickupResults" class="place-results"></div></div>
+<div class="place-search"><label>Drop Location<input id="drop" type="text" placeholder="🔍 Search drop place" autocomplete="off" required></label><div id="dropResults" class="place-results"></div></div>
 <div id="vehicleWrap" hidden><label>Vehicle Type<select id="vehicle"><option value="">Select Vehicle</option><option>Sedan</option><option>SUV</option></select></label></div>
 <label>Passengers<input id="passengers" type="number" min="1" max="6" value="1" required></label>
 <label>Pickup Time<input id="time" type="time" required></label>
