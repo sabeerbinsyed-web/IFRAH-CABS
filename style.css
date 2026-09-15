@@ -4,3 +4,5 @@
 .place-results button{display:block;width:100%;text-align:left;padding:12px 13px;background:#fff;border:0;border-bottom:1px solid #eee;color:#222;font-size:14px;font-weight:500}
 .place-results button:hover{background:#f7f3e7}
 .searching{font-size:12px;color:#888;padding:10px 12px}
+
+textarea{width:100%;padding:13px;border:1px solid #ccc;border-radius:10px;font-size:16px;font-family:Arial,sans-serif;resize:vertical}textarea:focus{border-color:#c49a25;outline:none;box-shadow:0 0 0 3px #d6ad3520}
