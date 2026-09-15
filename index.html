@@ -37,11 +37,21 @@ body{
 }
 
 .logo{
-  font-size:23px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:21px;
   font-weight:800;
   letter-spacing:.3px;
 }
 
+.logo img{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  object-fit:cover;
+}
+  
 .book{
   background:#111;
   color:#fff;
@@ -248,7 +258,11 @@ footer{
 
 <!-- TOP BAR -->
 <header class="top">
-  <div class="logo">IFRAH CABS</div>
+
+  <div class="logo">
+  <img src="icon-512.png" alt="IFRAH CABS Logo">
+  <span>IFRAH CABS</span>
+  </div>
 
   <a class="book" href="#booking">
     BOOK NOW
