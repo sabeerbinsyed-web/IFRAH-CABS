@@ -1,21 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1"> 
-  
-<link rel="icon" type="image/png" href="favicon.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-<link rel="icon" type="image/png" sizes="512x512" href="icon-512.png"> 
-  
-<title>IFRAH CABS ADMIN</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IFRAH CABS - Admin</title>
 
-<meta name="theme-color" content="#111827">
+<link rel="icon" type="image/png" href="favicon.png">
 
 <style>
-
 *{
   box-sizing:border-box;
 }
@@ -23,532 +15,292 @@
 body{
   margin:0;
   font-family:Arial,sans-serif;
-  background:#f3f5f9;
-  color:#172033;
+  background:#f5f5f5;
+  color:#222;
 }
 
-/* HEADER */
-
 header{
-  background:#111827;
-  color:white;
-  padding:16px 20px;
+  background:#111;
+  color:#d4af37;
+  padding:15px 18px;
   display:flex;
-  align-items:center;
   justify-content:space-between;
-  position:sticky;
-  top:0;
-  z-index:100;
+  align-items:center;
 }
 
 .logo{
-  font-size:22px;
-  font-weight:800;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:20px;
+  font-weight:bold;
+}
+
+.logo img{
+  width:42px;
+  height:42px;
+  border-radius:50%;
 }
 
 .logout{
-  display:none;
-  background:white;
-  color:#111827;
+  background:#d4af37;
+  color:#111;
   border:0;
-  padding:9px 16px;
-  border-radius:20px;
-  font-weight:700;
+  padding:9px 14px;
+  border-radius:7px;
+  font-weight:bold;
 }
 
-/* MAIN */
-
-main{
+.container{
   max-width:1100px;
   margin:auto;
-  padding:25px 15px;
+  padding:18px;
 }
 
-/* CARD */
-
-.card{
+#loginBox{
+  max-width:400px;
+  margin:70px auto;
   background:white;
-  border-radius:18px;
-  padding:22px;
-  box-shadow:0 5px 20px #00000012;
-  margin-bottom:20px;
+  padding:25px;
+  border-radius:14px;
+  box-shadow:0 4px 20px #0002;
 }
 
-/* LOGIN */
-
-.login-card{
-  max-width:450px;
-  margin:60px auto;
-}
-
-.login-card h1{
-  margin-top:0;
+#loginBox h2{
   text-align:center;
+  color:#b08b20;
 }
 
-.login-sub{
-  text-align:center;
-  color:#667085;
-  margin-bottom:25px;
-}
-
-label{
-  display:block;
-  font-weight:700;
-  margin:12px 0 6px;
-}
-
-input{
+input,select{
   width:100%;
-  padding:14px;
-  border:1px solid #d1d5db;
-  border-radius:10px;
-  font-size:16px;
+  padding:12px;
+  margin:7px 0 14px;
+  border:1px solid #ccc;
+  border-radius:8px;
+  font-size:15px;
 }
 
-input:focus{
-  outline:none;
-  border-color:#111827;
-}
-
-.login-btn,
-.refresh-btn{
+.loginBtn{
   width:100%;
+  padding:13px;
+  background:#111;
+  color:#d4af37;
   border:0;
-  background:#111827;
-  color:white;
-  padding:14px;
-  border-radius:10px;
+  border-radius:8px;
+  font-weight:bold;
   font-size:16px;
-  font-weight:800;
-  margin-top:15px;
 }
-
-.login-btn:disabled{
-  opacity:.6;
-}
-
-.message{
-  margin-top:15px;
-  text-align:center;
-  font-weight:700;
-}
-
-.error{
-  color:#dc2626;
-}
-
-.success{
-  color:#15803d;
-}
-
-/* DASHBOARD */
-
-#dashboard{
-  display:none;
-}
-
-.dashboard-title{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:15px;
-  flex-wrap:wrap;
-}
-
-.dashboard-title h1{
-  margin:0;
-}
-
-.refresh-btn{
-  width:auto;
-  padding:11px 18px;
-  margin:0;
-}
-
-/* STATS */
 
 .stats{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:15px;
-  margin-bottom:20px;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  margin-bottom:18px;
 }
 
 .stat{
   background:white;
-  padding:20px;
-  border-radius:16px;
-  box-shadow:0 5px 20px #00000010;
+  padding:18px;
+  border-radius:12px;
+  box-shadow:0 2px 10px #0001;
+  text-align:center;
 }
 
-.stat-title{
-  color:#667085;
-  font-size:14px;
-  font-weight:700;
+.stat b{
+  display:block;
+  font-size:25px;
+  margin-top:5px;
 }
 
-.stat-number{
-  font-size:30px;
-  font-weight:800;
-  margin-top:7px;
+.controls{
+  background:white;
+  padding:15px;
+  border-radius:12px;
+  margin-bottom:18px;
 }
-
-/* BOOKING */
 
 .booking{
   background:white;
-  border-radius:18px;
-  padding:20px;
-  margin-bottom:16px;
-  box-shadow:0 5px 20px #00000010;
-  border-left:5px solid #111827;
+  margin-bottom:14px;
+  padding:17px;
+  border-radius:12px;
+  box-shadow:0 2px 10px #0001;
 }
 
-.booking-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-bottom:12px;
-}
-
-.booking-title{
-  font-size:20px;
-  font-weight:800;
-}
-
-.booking-id{
-  font-size:12px;
-  color:#667085;
-  word-break:break-all;
+.booking h3{
+  margin:0 0 8px;
 }
 
 .row{
-  padding:9px 0;
-  border-bottom:1px solid #edf0f3;
-  line-height:1.5;
-}
-
-.row:last-child{
-  border-bottom:0;
+  margin:6px 0;
 }
 
 .label{
-  font-weight:800;
+  font-weight:bold;
 }
-
-.phone{
-  color:#2563eb;
-  text-decoration:none;
-  font-weight:700;
-}
-
-.whatsapp{
-  color:#159447;
-  text-decoration:none;
-  font-weight:700;
-}
-
-/* STATUS */
 
 .status{
-  display:inline-block;
-  padding:6px 11px;
-  border-radius:20px;
-  font-size:13px;
-  font-weight:800;
+  padding:7px;
+  border-radius:7px;
+  font-weight:bold;
 }
-
-.status-pending{
-  background:#fff7d6;
-  color:#92400e;
-}
-
-.status-confirmed{
-  background:#dcfce7;
-  color:#166534;
-}
-
-.status-cancelled{
-  background:#fee2e2;
-  color:#991b1b;
-}
-
-.status-select{
-  padding:9px;
-  border:1px solid #d1d5db;
-  border-radius:8px;
-  font-weight:700;
-}
-
-/* ACTIONS */
 
 .actions{
   display:flex;
-  gap:10px;
+  gap:8px;
   flex-wrap:wrap;
-  margin-top:15px;
+  margin-top:12px;
 }
 
+.actions a,
 .actions button{
-  width:auto;
-  padding:10px 14px;
+  padding:9px 12px;
   border:0;
-  border-radius:9px;
-  font-weight:700;
+  border-radius:7px;
+  text-decoration:none;
+  font-weight:bold;
+  cursor:pointer;
 }
 
-.save-btn{
-  background:#111827;
-  color:white;
+.call{
+  background:#e8f5e9;
+  color:#168b2d;
 }
 
-.delete-btn{
-  background:#fee2e2;
-  color:#991b1b;
+.whatsapp{
+  background:#dff7e5;
+  color:#168b2d;
 }
 
-/* EMPTY */
+.delete{
+  background:#ffe5e5;
+  color:#d00;
+}
+
+.refresh{
+  background:#111;
+  color:#d4af37;
+  border:0;
+  padding:10px 15px;
+  border-radius:7px;
+  font-weight:bold;
+}
 
 .empty{
   text-align:center;
-  padding:45px 20px;
-  color:#667085;
+  padding:35px;
+  color:#777;
 }
-
-.loading{
-  text-align:center;
-  padding:40px;
-  color:#667085;
-}
-
-/* MOBILE */
 
 @media(max-width:700px){
-
-  header{
-    padding:13px 15px;
-  }
-
-  .logo{
-    font-size:19px;
-  }
-
-  main{
-    padding:18px 12px;
-  }
-
-  .login-card{
-    margin:30px auto;
-  }
-
   .stats{
-    grid-template-columns:1fr;
+    grid-template-columns:repeat(2,1fr);
   }
-
-  .dashboard-title h1{
-    font-size:25px;
-  }
-
-  .refresh-btn{
-    width:100%;
-  }
-
-  .booking{
-    padding:17px;
-  }
-
 }
-
 </style>
-
 </head>
 
 <body>
 
+<div id="loginBox">
 
-<!-- HEADER -->
+  <h2>🚕 IFRAH CABS</h2>
+  <p style="text-align:center">ADMIN PANEL</p>
 
-<header>
+  <input id="email"
+         type="email"
+         placeholder="Admin Email">
 
-  <div class="logo">
-    🚕 IFRAH CABS ADMIN
-  </div>
+  <input id="password"
+         type="password"
+         placeholder="Password">
 
-  <button
-    id="logoutBtn"
-    class="logout">
-    Logout
+  <button class="loginBtn" onclick="login()">
+    LOGIN
   </button>
 
+  <p id="loginError"
+     style="color:red;text-align:center"></p>
+
+</div>
+
+
+<div id="adminPanel" style="display:none">
+
+<header>
+  <div class="logo">
+    <img src="icon-512.png">
+    <span>IFRAH CABS ADMIN</span>
+  </div>
+
+  <button class="logout" onclick="logout()">
+    Logout
+  </button>
 </header>
 
 
+<div class="container">
 
-<main>
+  <div class="stats">
 
+    <div class="stat">
+      Total
+      <b id="total">0</b>
+    </div>
 
-<!-- =====================
-     LOGIN
-     ===================== -->
+    <div class="stat">
+      Pending
+      <b id="pending">0</b>
+    </div>
 
-<section
-  id="loginSection"
-  class="card login-card">
+    <div class="stat">
+      Confirmed
+      <b id="confirmed">0</b>
+    </div>
 
-  <h1>Admin Login</h1>
+    <div class="stat">
+      Cancelled
+      <b id="cancelled">0</b>
+    </div>
 
-  <div class="login-sub">
-    IFRAH CABS Booking Management
   </div>
 
-  <label for="email">
-    Admin Email
-  </label>
 
-  <input
-    type="email"
-    id="email"
-    placeholder="Enter admin email"
-    autocomplete="email"
-  >
+  <div class="controls">
 
-  <label for="password">
-    Password
-  </label>
+    <input id="search"
+           placeholder="🔍 Search name, mobile, pickup, drop..."
+           oninput="displayBookings()">
 
-  <input
-    type="password"
-    id="password"
-    placeholder="Enter password"
-    autocomplete="current-password"
-  >
+    <select id="filter"
+            onchange="displayBookings()">
 
-  <button
-    id="loginBtn"
-    class="login-btn">
+      <option value="All">All Bookings</option>
+      <option value="Pending">Pending</option>
+      <option value="Confirmed">Confirmed</option>
+      <option value="Cancelled">Cancelled</option>
 
-    LOGIN
+    </select>
 
-  </button>
-
-  <div
-    id="loginMessage"
-    class="message">
-  </div>
-
-</section>
-
-
-
-<!-- =====================
-     DASHBOARD
-     ===================== -->
-
-<section id="dashboard">
-
-
-  <!-- TITLE -->
-
-  <div class="card dashboard-title">
-
-    <h1>
-      📋 Bookings
-    </h1>
-
-    <button
-      id="refreshBtn"
-      class="refresh-btn">
-
+    <button class="refresh"
+            onclick="loadBookings()">
       🔄 Refresh
-
     </button>
 
   </div>
 
 
+  <div id="bookingList"></div>
 
-  <!-- STATS -->
+</div>
+</div>
 
-  <div class="stats">
-
-    <div class="stat">
-
-      <div class="stat-title">
-        TOTAL BOOKINGS
-      </div>
-
-      <div
-        id="totalCount"
-        class="stat-number">
-        0
-      </div>
-
-    </div>
-
-
-    <div class="stat">
-
-      <div class="stat-title">
-        PENDING
-      </div>
-
-      <div
-        id="pendingCount"
-        class="stat-number">
-        0
-      </div>
-
-    </div>
-
-
-    <div class="stat">
-
-      <div class="stat-title">
-        CONFIRMED
-      </div>
-
-      <div
-        id="confirmedCount"
-        class="stat-number">
-        0
-      </div>
-
-    </div>
-
-  </div>
-
-
-
-  <!-- BOOKINGS -->
-
-  <div id="bookingsContainer">
-
-    <div class="loading">
-      Loading bookings...
-    </div>
-
-  </div>
-
-
-</section>
-
-</main>
-
-
-
-<!-- =========================
-     FIREBASE
-     ========================= -->
 
 <script type="module">
 
 import {
   initializeApp
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-
 
 import {
   getAuth,
@@ -557,542 +309,346 @@ import {
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
-
 import {
   getFirestore,
   collection,
   getDocs,
-  query,
-  orderBy,
   doc,
   updateDoc,
-  deleteDoc
+  deleteDoc,
+  query,
+  orderBy
 } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
-
-/* =========================
-   FIREBASE CONFIG
-   ========================= */
+/* FIREBASE CONFIG */
 
 const firebaseConfig = {
 
   apiKey:
-    "AIzaSyD2yBDsxqzHmHzXy-G9r30uUuNSquDVmZYM",
+  "AIzaSyD2yBDsxqzHmHzXy-G9r30uUuNSquDVmZYM",
 
   authDomain:
-    "ifrah-cabs.firebaseapp.com",
+  "ifrah-cabs.firebaseapp.com",
 
   projectId:
-    "ifrah-cabs",
+  "ifrah-cabs",
 
   storageBucket:
-    "ifrah-cabs.firebasestorage.app",
+  "ifrah-cabs.firebasestorage.app",
 
   messagingSenderId:
-    "1058171424992",
+  "1058171424992",
 
   appId:
-    "1:1058171424992:web:08cfe92a8ab95f014ec085"
+  "1:1058171424992:web:08cfe92a8ab95f014ec085"
+};
+
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const db = getFirestore(app);
+
+let bookings = [];
+
+
+/* LOGIN */
+
+window.login = async function(){
+
+  const email =
+    document.getElementById("email").value.trim();
+
+  const password =
+    document.getElementById("password").value;
+
+  const error =
+    document.getElementById("loginError");
+
+  error.textContent = "";
+
+  if(!email || !password){
+
+    error.textContent =
+      "Enter email and password.";
+
+    return;
+  }
+
+  try{
+
+    await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+
+  }catch(e){
+
+    console.error(e);
+
+    error.textContent =
+      "Login failed: " + e.code;
+
+  }
 
 };
 
 
+/* LOGOUT */
 
-/* =========================
-   INITIALIZE
-   ========================= */
+window.logout = async function(){
 
-const app =
-  initializeApp(firebaseConfig);
+  await signOut(auth);
 
-
-/* IMPORTANT:
-   auth is created here
-*/
-
-const auth =
-  getAuth(app);
+};
 
 
-const db =
-  getFirestore(app);
+/* AUTH STATE */
 
+onAuthStateChanged(auth, user => {
 
+  if(user){
 
-/* =========================
-   ELEMENTS
-   ========================= */
+    document.getElementById("loginBox")
+      .style.display = "none";
 
-const loginSection =
-  document.getElementById("loginSection");
+    document.getElementById("adminPanel")
+      .style.display = "block";
 
-const dashboard =
-  document.getElementById("dashboard");
+    loadBookings();
 
-const logoutBtn =
-  document.getElementById("logoutBtn");
+  }else{
 
-const loginBtn =
-  document.getElementById("loginBtn");
+    document.getElementById("loginBox")
+      .style.display = "block";
 
-const refreshBtn =
-  document.getElementById("refreshBtn");
-
-const emailInput =
-  document.getElementById("email");
-
-const passwordInput =
-  document.getElementById("password");
-
-const loginMessage =
-  document.getElementById("loginMessage");
-
-const bookingsContainer =
-  document.getElementById("bookingsContainer");
-
-const totalCount =
-  document.getElementById("totalCount");
-
-const pendingCount =
-  document.getElementById("pendingCount");
-
-const confirmedCount =
-  document.getElementById("confirmedCount");
-
-
-
-/* =========================
-   LOGIN
-   ========================= */
-
-loginBtn.addEventListener(
-  "click",
-  async function(){
-
-    const email =
-      emailInput.value.trim();
-
-    const password =
-      passwordInput.value;
-
-
-    if(!email || !password){
-
-      loginMessage.innerHTML =
-        '<div class="error">Please enter email and password.</div>';
-
-      return;
-
-    }
-
-
-    loginBtn.disabled = true;
-
-    loginBtn.textContent =
-      "LOGGING IN...";
-
-    loginMessage.innerHTML =
-      "";
-
-
-    try{
-
-      await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-
-      loginMessage.innerHTML =
-        '<div class="success">Login successful.</div>';
-
-    }
-
-    catch(error){
-
-      console.error(error);
-
-      loginMessage.innerHTML =
-        '<div class="error">Login failed: '
-        +
-        (error.code || error.message)
-        +
-        '</div>';
-
-    }
-
-    finally{
-
-      loginBtn.disabled =
-        false;
-
-      loginBtn.textContent =
-        "LOGIN";
-
-    }
+    document.getElementById("adminPanel")
+      .style.display = "none";
 
   }
-);
+
+});
 
 
+/* LOAD BOOKINGS */
 
-/* ENTER KEY */
+window.loadBookings = async function(){
 
-passwordInput.addEventListener(
-  "keydown",
-  function(event){
+  const list =
+    document.getElementById("bookingList");
 
-    if(event.key === "Enter"){
-
-      loginBtn.click();
-
-    }
-
-  }
-);
-
-
-
-/* =========================
-   AUTH STATE
-   ========================= */
-
-onAuthStateChanged(
-  auth,
-  async function(user){
-
-    if(user){
-
-      loginSection.style.display =
-        "none";
-
-      dashboard.style.display =
-        "block";
-
-      logoutBtn.style.display =
-        "block";
-
-      await loadBookings();
-
-    }
-
-    else{
-
-      loginSection.style.display =
-        "block";
-
-      dashboard.style.display =
-        "none";
-
-      logoutBtn.style.display =
-        "none";
-
-    }
-
-  }
-);
-
-
-
-/* =========================
-   LOGOUT
-   ========================= */
-
-logoutBtn.addEventListener(
-  "click",
-  async function(){
-
-    await signOut(auth);
-
-  }
-);
-
-
-
-/* =========================
-   LOAD BOOKINGS
-   ========================= */
-
-async function loadBookings(){
-
-  bookingsContainer.innerHTML =
-    '<div class="loading">Loading bookings...</div>';
-
+  list.innerHTML =
+    "<div class='empty'>Loading bookings...</div>";
 
   try{
 
-    const bookingsRef =
-      collection(db,"bookings");
-
-
-    let snapshot;
-
-
-    try{
-
-      const q =
-        query(
-          bookingsRef,
-          orderBy(
-            "createdAt",
-            "desc"
-          )
-        );
-
-      snapshot =
-        await getDocs(q);
-
-    }
-
-    catch(error){
-
-      console.log(
-        "Sorting unavailable. Loading normally."
-      );
-
-      snapshot =
-        await getDocs(bookingsRef);
-
-    }
-
-
-    totalCount.textContent =
-      snapshot.size;
-
-
-    let pending = 0;
-    let confirmed = 0;
-
-
-    snapshot.forEach(
-      function(document){
-
-        const data =
-          document.data();
-
-        const status =
-          data.status || "Pending";
-
-
-        if(status === "Pending"){
-          pending++;
-        }
-
-        if(status === "Confirmed"){
-          confirmed++;
-        }
-
-      }
+    const q = query(
+      collection(db,"bookings"),
+      orderBy("createdAt","desc")
     );
 
+    const snapshot =
+      await getDocs(q);
 
-    pendingCount.textContent =
-      pending;
+    bookings = [];
 
-    confirmedCount.textContent =
-      confirmed;
+    snapshot.forEach(item => {
 
+      bookings.push({
+        id:item.id,
+        ...item.data()
+      });
 
-    if(snapshot.empty){
+    });
 
-      bookingsContainer.innerHTML =
-        '<div class="card empty">No bookings found.</div>';
+    updateStats();
 
-      return;
+    displayBookings();
 
-    }
+  }catch(e){
 
+    console.error(e);
 
-    bookingsContainer.innerHTML =
-      "";
-
-
-    snapshot.forEach(
-      function(document){
-
-        createBookingCard(
-          document.id,
-          document.data()
-        );
-
-      }
-    );
+    list.innerHTML =
+      "<div class='empty'>Unable to load bookings.<br><br>"
+      + e.message +
+      "</div>";
 
   }
 
-  catch(error){
+};
 
-    console.error(error);
 
-    bookingsContainer.innerHTML =
+/* STATS */
 
-      '<div class="card">' +
+function updateStats(){
 
-      '<div class="error">' +
+  document.getElementById("total")
+    .textContent = bookings.length;
 
-      'Firestore Error:<br>' +
+  document.getElementById("pending")
+    .textContent =
+      bookings.filter(x =>
+        x.status === "Pending"
+      ).length;
 
-      (error.code || error.message) +
+  document.getElementById("confirmed")
+    .textContent =
+      bookings.filter(x =>
+        x.status === "Confirmed"
+      ).length;
 
-      '</div>' +
-
-      '</div>';
-
-  }
+  document.getElementById("cancelled")
+    .textContent =
+      bookings.filter(x =>
+        x.status === "Cancelled"
+      ).length;
 
 }
 
 
+/* DISPLAY */
 
-/* =========================
-   CREATE BOOKING CARD
-   ========================= */
+window.displayBookings = function(){
 
-function createBookingCard(
-  id,
-  data
-){
+  const list =
+    document.getElementById("bookingList");
 
-  const booking =
-    document.createElement("div");
+  const search =
+    document.getElementById("search")
+      .value.toLowerCase();
 
-  booking.className =
-    "booking";
+  const filter =
+    document.getElementById("filter").value;
 
+  const filtered =
+    bookings.filter(b => {
+
+      const text = [
+
+        b.name,
+        b.mobile,
+        b.pickup,
+        b.drop,
+        b.service,
+        b.vehicle,
+        b.date
+
+      ].join(" ").toLowerCase();
+
+      const matchSearch =
+        text.includes(search);
+
+      const matchFilter =
+        filter === "All" ||
+        b.status === filter;
+
+      return matchSearch && matchFilter;
+
+    });
+
+
+  if(filtered.length === 0){
+
+    list.innerHTML =
+      "<div class='empty'>No bookings found.</div>";
+
+    return;
+
+  }
+
+
+  list.innerHTML =
+    filtered.map(b => bookingHTML(b)).join("");
+
+};
+
+
+/* BOOKING CARD */
+
+function bookingHTML(b){
 
   const status =
-    data.status || "Pending";
+    b.status || "Pending";
 
+  return `
 
-  const statusClass =
-    status.toLowerCase();
+  <div class="booking">
 
-
-  booking.innerHTML = `
-
-    <div class="booking-header">
-
-      <div>
-
-        <div class="booking-title">
-          🚕 ${escapeHtml(data.name || "Customer")}
-        </div>
-
-        <div class="booking-id">
-          Booking ID: ${escapeHtml(id)}
-        </div>
-
-      </div>
-
-      <span class="status status-${statusClass}">
-        ${escapeHtml(status)}
-      </span>
-
-    </div>
-
+    <h3>
+      🚕 ${escapeHTML(b.name || "Customer")}
+    </h3>
 
     <div class="row">
-      <span class="label">Service:</span>
-      ${escapeHtml(data.service || "")}
+      <span class="label">📱 Mobile:</span>
+      ${escapeHTML(b.mobile || "-")}
     </div>
 
+    <div class="row">
+      <span class="label">📅 Date:</span>
+      ${escapeHTML(b.date || "-")}
+    </div>
+
+    <div class="row">
+      <span class="label">⏰ Time:</span>
+      ${escapeHTML(b.time || "-")}
+    </div>
+
+    <div class="row">
+      <span class="label">📍 Pickup:</span>
+      ${escapeHTML(b.pickup || "-")}
+    </div>
+
+    <div class="row">
+      <span class="label">🏁 Drop:</span>
+      ${escapeHTML(b.drop || "-")}
+    </div>
+
+    <div class="row">
+      <span class="label">🚕 Service:</span>
+      ${escapeHTML(b.service || "-")}
+    </div>
 
     ${
-      data.vehicle
+      b.service === "One Way" ||
+      b.service === "Round Trip"
       ?
-      `
-      <div class="row">
-        <span class="label">Vehicle:</span>
-        ${escapeHtml(data.vehicle)}
-      </div>
-      `
+      `<div class="row">
+        <span class="label">🚗 Vehicle:</span>
+        ${escapeHTML(b.vehicle || "-")}
+      </div>`
       :
       ""
     }
 
-
     <div class="row">
-      <span class="label">Travel Date:</span>
-      ${escapeHtml(data.date || "")}
+      <span class="label">👥 Passengers:</span>
+      ${escapeHTML(String(b.passengers || "-"))}
     </div>
-
-
-    <div class="row">
-      <span class="label">Pickup:</span>
-      ${escapeHtml(data.pickup || "")}
-    </div>
-
-
-    <div class="row">
-      <span class="label">Drop:</span>
-      ${escapeHtml(data.drop || "")}
-    </div>
-
-
-    <div class="row">
-      <span class="label">Passengers:</span>
-      ${escapeHtml(String(data.passengers || ""))}
-    </div>
-
-
-    <div class="row">
-      <span class="label">Pickup Time:</span>
-      ${escapeHtml(data.time || "")}
-    </div>
-
-
-    <div class="row">
-
-      <span class="label">Mobile:</span>
-
-      <a
-        class="phone"
-        href="tel:${escapeHtml(data.mobile || "")}">
-
-        ${escapeHtml(data.mobile || "")}
-
-      </a>
-
-    </div>
-
-
-    <div class="row">
-
-      <span class="label">WhatsApp:</span>
-
-      <a
-        class="whatsapp"
-        target="_blank"
-        href="https://wa.me/91${escapeHtml(data.mobile || "")}">
-
-        💬 Open WhatsApp
-
-      </a>
-
-    </div>
-
 
     <div class="row">
 
       <span class="label">Status:</span>
 
       <select
-        class="status-select"
-        id="status-${id}">
+        class="status"
+        onchange="changeStatus('${b.id}',this.value)">
 
-        <option value="Pending"
-          ${status === "Pending" ? "selected" : ""}>
+        <option
+          ${status==="Pending"?"selected":""}>
           Pending
         </option>
 
-        <option value="Confirmed"
-          ${status === "Confirmed" ? "selected" : ""}>
+        <option
+          ${status==="Confirmed"?"selected":""}>
           Confirmed
         </option>
 
-        <option value="Cancelled"
-          ${status === "Cancelled" ? "selected" : ""}>
+        <option
+          ${status==="Cancelled"?"selected":""}>
           Cancelled
         </option>
 
@@ -1103,189 +659,896 @@ function createBookingCard(
 
     <div class="actions">
 
+      <a
+        class="call"
+        href="tel:${escapeHTML(b.mobile || "")}">
+        📞 Call
+      </a>
+
+      <a
+        class="whatsapp"
+        target="_blank"
+        href="https://wa.me/91${cleanMobile(b.mobile)}">
+        💬 WhatsApp
+      </a>
+
       <button
-        class="save-btn"
-        id="save-${id}">
-
-        💾 Save Status
-
-      </button>
-
-
-      <button
-        class="delete-btn"
-        id="delete-${id}">
-
+        class="delete"
+        onclick="removeBooking('${b.id}')">
         🗑️ Delete
-
       </button>
 
     </div>
 
+  </div>
+
   `;
-
-
-  bookingsContainer.appendChild(
-    booking
-  );
-
-
-  /* SAVE STATUS */
-
-  document
-    .getElementById(`save-${id}`)
-    .addEventListener(
-      "click",
-      function(){
-
-        saveStatus(id);
-
-      }
-    );
-
-
-  /* DELETE */
-
-  document
-    .getElementById(`delete-${id}`)
-    .addEventListener(
-      "click",
-      function(){
-
-        deleteBooking(id);
-
-      }
-    );
 
 }
 
 
+/* STATUS */
 
-/* =========================
-   SAVE STATUS
-   ========================= */
-
-async function saveStatus(id){
-
-  const select =
-    document.getElementById(
-      `status-${id}`
-    );
-
-  const newStatus =
-    select.value;
-
+window.changeStatus = async function(id,status){
 
   try{
 
     await updateDoc(
-      doc(
-        db,
-        "bookings",
-        id
-      ),
-      {
-        status: newStatus
-      }
+      doc(db,"bookings",id),
+      {status:status}
     );
 
+    const item =
+      bookings.find(x => x.id === id);
+
+    if(item){
+      item.status = status;
+    }
+
+    updateStats();
+
+    displayBookings();
+
+  }catch(e){
 
     alert(
-      "Booking status updated."
-    );
-
-
-    await loadBookings();
-
-  }
-
-  catch(error){
-
-    console.error(error);
-
-    alert(
-      "Update failed: "
-      +
-      (error.code || error.message)
+      "Status update failed: " + e.message
     );
 
   }
 
-}
+};
 
 
+/* DELETE */
 
-/* =========================
-   DELETE BOOKING
-   ========================= */
+window.removeBooking = async function(id){
 
-async function deleteBooking(id){
-
-  const confirmDelete =
-    confirm(
-      "Delete this booking?"
-    );
-
-
-  if(!confirmDelete){
+  if(!confirm(
+    "Delete this booking permanently?"
+  )){
     return;
   }
-
 
   try{
 
     await deleteDoc(
-      doc(
-        db,
-        "bookings",
-        id
-      )
+      doc(db,"bookings",id)
     );
 
+    bookings =
+      bookings.filter(x => x.id !== id);
+
+    updateStats();
+
+    displayBookings();
+
+  }catch(e){
 
     alert(
-      "Booking deleted."
+      "Delete failed: " + e.message
     );
-
-
-    await loadBookings();
 
   }
 
-  catch(error){
+};
 
-    console.error(error);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IFRAH CABS - Admin</title>
 
-    alert(
-      "Delete failed: "
-      +
-      (error.code || error.message)
+<link rel="icon" type="image/png" href="favicon.png">
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f5f5f5;
+  color:#222;
+}
+
+header{
+  background:#111;
+  color:#d4af37;
+  padding:15px 18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:20px;
+  font-weight:bold;
+}
+
+.logo img{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+}
+
+.logout{
+  background:#d4af37;
+  color:#111;
+  border:0;
+  padding:9px 14px;
+  border-radius:7px;
+  font-weight:bold;
+}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:18px;
+}
+
+#loginBox{
+  max-width:400px;
+  margin:70px auto;
+  background:white;
+  padding:25px;
+  border-radius:14px;
+  box-shadow:0 4px 20px #0002;
+}
+
+#loginBox h2{
+  text-align:center;
+  color:#b08b20;
+}
+
+input,select{
+  width:100%;
+  padding:12px;
+  margin:7px 0 14px;
+  border:1px solid #ccc;
+  border-radius:8px;
+  font-size:15px;
+}
+
+.loginBtn{
+  width:100%;
+  padding:13px;
+  background:#111;
+  color:#d4af37;
+  border:0;
+  border-radius:8px;
+  font-weight:bold;
+  font-size:16px;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  margin-bottom:18px;
+}
+
+.stat{
+  background:white;
+  padding:18px;
+  border-radius:12px;
+  box-shadow:0 2px 10px #0001;
+  text-align:center;
+}
+
+.stat b{
+  display:block;
+  font-size:25px;
+  margin-top:5px;
+}
+
+.controls{
+  background:white;
+  padding:15px;
+  border-radius:12px;
+  margin-bottom:18px;
+}
+
+.booking{
+  background:white;
+  margin-bottom:14px;
+  padding:17px;
+  border-radius:12px;
+  box-shadow:0 2px 10px #0001;
+}
+
+.booking h3{
+  margin:0 0 8px;
+}
+
+.row{
+  margin:6px 0;
+}
+
+.label{
+  font-weight:bold;
+}
+
+.status{
+  padding:7px;
+  border-radius:7px;
+  font-weight:bold;
+}
+
+.actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+
+.actions a,
+.actions button{
+  padding:9px 12px;
+  border:0;
+  border-radius:7px;
+  text-decoration:none;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.call{
+  background:#e8f5e9;
+  color:#168b2d;
+}
+
+.whatsapp{
+  background:#dff7e5;
+  color:#168b2d;
+}
+
+.delete{
+  background:#ffe5e5;
+  color:#d00;
+}
+
+.refresh{
+  background:#111;
+  color:#d4af37;
+  border:0;
+  padding:10px 15px;
+  border-radius:7px;
+  font-weight:bold;
+}
+
+.empty{
+  text-align:center;
+  padding:35px;
+  color:#777;
+}
+
+@media(max-width:700px){
+  .stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div id="loginBox">
+
+  <h2>🚕 IFRAH CABS</h2>
+  <p style="text-align:center">ADMIN PANEL</p>
+
+  <input id="email"
+         type="email"
+         placeholder="Admin Email">
+
+  <input id="password"
+         type="password"
+         placeholder="Password">
+
+  <button class="loginBtn" onclick="login()">
+    LOGIN
+  </button>
+
+  <p id="loginError"
+     style="color:red;text-align:center"></p>
+
+</div>
+
+
+<div id="adminPanel" style="display:none">
+
+<header>
+  <div class="logo">
+    <img src="icon-512.png">
+    <span>IFRAH CABS ADMIN</span>
+  </div>
+
+  <button class="logout" onclick="logout()">
+    Logout
+  </button>
+</header>
+
+
+<div class="container">
+
+  <div class="stats">
+
+    <div class="stat">
+      Total
+      <b id="total">0</b>
+    </div>
+
+    <div class="stat">
+      Pending
+      <b id="pending">0</b>
+    </div>
+
+    <div class="stat">
+      Confirmed
+      <b id="confirmed">0</b>
+    </div>
+
+    <div class="stat">
+      Cancelled
+      <b id="cancelled">0</b>
+    </div>
+
+  </div>
+
+
+  <div class="controls">
+
+    <input id="search"
+           placeholder="🔍 Search name, mobile, pickup, drop..."
+           oninput="displayBookings()">
+
+    <select id="filter"
+            onchange="displayBookings()">
+
+      <option value="All">All Bookings</option>
+      <option value="Pending">Pending</option>
+      <option value="Confirmed">Confirmed</option>
+      <option value="Cancelled">Cancelled</option>
+
+    </select>
+
+    <button class="refresh"
+            onclick="loadBookings()">
+      🔄 Refresh
+    </button>
+
+  </div>
+
+
+  <div id="bookingList"></div>
+
+</div>
+</div>
+
+
+<script type="module">
+
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  doc,
+  updateDoc,
+  deleteDoc,
+  query,
+  orderBy
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+/* FIREBASE CONFIG */
+
+const firebaseConfig = {
+
+  apiKey:
+  "AIzaSyD2yBDsxqzHmHzXy-G9r30uUuNSquDVmZYM",
+
+  authDomain:
+  "ifrah-cabs.firebaseapp.com",
+
+  projectId:
+  "ifrah-cabs",
+
+  storageBucket:
+  "ifrah-cabs.firebasestorage.app",
+
+  messagingSenderId:
+  "1058171424992",
+
+  appId:
+  "1:1058171424992:web:08cfe92a8ab95f014ec085"
+};
+
+
+const app = initializeApp(firebaseConfig);
+
+const auth = getAuth(app);
+
+const db = getFirestore(app);
+
+let bookings = [];
+
+
+/* LOGIN */
+
+window.login = async function(){
+
+  const email =
+    document.getElementById("email").value.trim();
+
+  const password =
+    document.getElementById("password").value;
+
+  const error =
+    document.getElementById("loginError");
+
+  error.textContent = "";
+
+  if(!email || !password){
+
+    error.textContent =
+      "Enter email and password.";
+
+    return;
+  }
+
+  try{
+
+    await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
     );
 
+  }catch(e){
+
+    console.error(e);
+
+    error.textContent =
+      "Login failed: " + e.code;
+
   }
+
+};
+
+
+/* LOGOUT */
+
+window.logout = async function(){
+
+  await signOut(auth);
+
+};
+
+
+/* AUTH STATE */
+
+onAuthStateChanged(auth, user => {
+
+  if(user){
+
+    document.getElementById("loginBox")
+      .style.display = "none";
+
+    document.getElementById("adminPanel")
+      .style.display = "block";
+
+    loadBookings();
+
+  }else{
+
+    document.getElementById("loginBox")
+      .style.display = "block";
+
+    document.getElementById("adminPanel")
+      .style.display = "none";
+
+  }
+
+});
+
+
+/* LOAD BOOKINGS */
+
+window.loadBookings = async function(){
+
+  const list =
+    document.getElementById("bookingList");
+
+  list.innerHTML =
+    "<div class='empty'>Loading bookings...</div>";
+
+  try{
+
+    const q = query(
+      collection(db,"bookings"),
+      orderBy("createdAt","desc")
+    );
+
+    const snapshot =
+      await getDocs(q);
+
+    bookings = [];
+
+    snapshot.forEach(item => {
+
+      bookings.push({
+        id:item.id,
+        ...item.data()
+      });
+
+    });
+
+    updateStats();
+
+    displayBookings();
+
+  }catch(e){
+
+    console.error(e);
+
+    list.innerHTML =
+      "<div class='empty'>Unable to load bookings.<br><br>"
+      + e.message +
+      "</div>";
+
+  }
+
+};
+
+
+/* STATS */
+
+function updateStats(){
+
+  document.getElementById("total")
+    .textContent = bookings.length;
+
+  document.getElementById("pending")
+    .textContent =
+      bookings.filter(x =>
+        x.status === "Pending"
+      ).length;
+
+  document.getElementById("confirmed")
+    .textContent =
+      bookings.filter(x =>
+        x.status === "Confirmed"
+      ).length;
+
+  document.getElementById("cancelled")
+    .textContent =
+      bookings.filter(x =>
+        x.status === "Cancelled"
+      ).length;
 
 }
 
 
+/* DISPLAY */
 
-/* =========================
-   REFRESH
-   ========================= */
+window.displayBookings = function(){
 
-refreshBtn.addEventListener(
-  "click",
-  loadBookings
-);
+  const list =
+    document.getElementById("bookingList");
+
+  const search =
+    document.getElementById("search")
+      .value.toLowerCase();
+
+  const filter =
+    document.getElementById("filter").value;
+
+  const filtered =
+    bookings.filter(b => {
+
+      const text = [
+
+        b.name,
+        b.mobile,
+        b.pickup,
+        b.drop,
+        b.service,
+        b.vehicle,
+        b.date
+
+      ].join(" ").toLowerCase();
+
+      const matchSearch =
+        text.includes(search);
+
+      const matchFilter =
+        filter === "All" ||
+        b.status === filter;
+
+      return matchSearch && matchFilter;
+
+    });
 
 
+  if(filtered.length === 0){
 
-/* =========================
-   HTML SAFE TEXT
-   ========================= */
+    list.innerHTML =
+      "<div class='empty'>No bookings found.</div>";
 
-function escapeHtml(value){
+    return;
 
-  return String(value)
+  }
+
+
+  list.innerHTML =
+    filtered.map(b => bookingHTML(b)).join("");
+
+};
+
+
+/* BOOKING CARD */
+
+function bookingHTML(b){
+
+  const status =
+    b.status || "Pending";
+
+  return `
+
+  <div class="booking">
+
+    <h3>
+      🚕 ${escapeHTML(b.name || "Customer")}
+    </h3>
+
+    <div class="row">
+      <span class="label">📱 Mobile:</span>
+      ${escapeHTML(b.mobile || "-")}
+    </div>
+
+    <div class="row">
+      <span class="label">📅 Date:</span>
+      ${escapeHTML(b.date || "-")}
+    </div>
+
+    <div class="row">
+      <span class="label">⏰ Time:</span>
+      ${escapeHTML(b.time || "-")}
+    </div>
+
+    <div class="row">
+      <span class="label">📍 Pickup:</span>
+      ${escapeHTML(b.pickup || "-")}
+    </div>
+
+    <div class="row">
+      <span class="label">🏁 Drop:</span>
+      ${escapeHTML(b.drop || "-")}
+    </div>
+
+    <div class="row">
+      <span class="label">🚕 Service:</span>
+      ${escapeHTML(b.service || "-")}
+    </div>
+
+    ${
+      b.service === "One Way" ||
+      b.service === "Round Trip"
+      ?
+      `<div class="row">
+        <span class="label">🚗 Vehicle:</span>
+        ${escapeHTML(b.vehicle || "-")}
+      </div>`
+      :
+      ""
+    }
+
+    <div class="row">
+      <span class="label">👥 Passengers:</span>
+      ${escapeHTML(String(b.passengers || "-"))}
+    </div>
+
+    <div class="row">
+
+      <span class="label">Status:</span>
+
+      <select
+        class="status"
+        onchange="changeStatus('${b.id}',this.value)">
+
+        <option
+          ${status==="Pending"?"selected":""}>
+          Pending
+        </option>
+
+        <option
+          ${status==="Confirmed"?"selected":""}>
+          Confirmed
+        </option>
+
+        <option
+          ${status==="Cancelled"?"selected":""}>
+          Cancelled
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div class="actions">
+
+      <a
+        class="call"
+        href="tel:${escapeHTML(b.mobile || "")}">
+        📞 Call
+      </a>
+
+      <a
+        class="whatsapp"
+        target="_blank"
+        href="https://wa.me/91${cleanMobile(b.mobile)}">
+        💬 WhatsApp
+      </a>
+
+      <button
+        class="delete"
+        onclick="removeBooking('${b.id}')">
+        🗑️ Delete
+      </button>
+
+    </div>
+
+  </div>
+
+  `;
+
+}
+
+
+/* STATUS */
+
+window.changeStatus = async function(id,status){
+
+  try{
+
+    await updateDoc(
+      doc(db,"bookings",id),
+      {status:status}
+    );
+
+    const item =
+      bookings.find(x => x.id === id);
+
+    if(item){
+      item.status = status;
+    }
+
+    updateStats();
+
+    displayBookings();
+
+  }catch(e){
+
+    alert(
+      "Status update failed: " + e.message
+    );
+
+  }
+
+};
+
+
+/* DELETE */
+
+window.removeBooking = async function(id){
+
+  if(!confirm(
+    "Delete this booking permanently?"
+  )){
+    return;
+  }
+
+  try{
+
+    await deleteDoc(
+      doc(db,"bookings",id)
+    );
+
+    bookings =
+      bookings.filter(x => x.id !== id);
+
+    updateStats();
+
+    displayBookings();
+
+  }catch(e){
+
+    alert(
+      "Delete failed: " + e.message
+    );
+
+  }
+
+};
+
+
+/* HELPERS */
+
+function cleanMobile(number){
+
+  return String(number || "")
+    .replace(/\D/g,"")
+    .replace(/^91/,"");
+
+}
+
+
+function escapeHTML(value){
+
+  return String(value || "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+</script>
+
+</body>
+</html>
+/* HELPERS */
+
+function cleanMobile(number){
+
+  return String(number || "")
+    .replace(/\D/g,"")
+    .replace(/^91/,"");
+
+}
+
+
+function escapeHTML(value){
+
+  return String(value || "")
     .replace(/&/g,"&amp;")
     .replace(/</g,"&lt;")
     .replace(/>/g,"&gt;")
