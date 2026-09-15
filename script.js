@@ -47,11 +47,85 @@ setupPlaceSearch("drop","dropResults");
 
 function map(){return"https://www.google.com/maps/dir/?api=1&origin="+encodeURIComponent($("pickup").value.trim())+"&destination="+encodeURIComponent($("drop").value.trim())}
 $("mapBtn").onclick=()=>{if(!$("pickup").value.trim()||!$("drop").value.trim())return alert("முதலில் Pickup மற்றும் Drop Location உள்ளிடுங்கள்.");open(map(),"_blank")};
-$("bookingForm").onsubmit=async e=>{e.preventDefault();let m=$("mobile").value.trim(),s=$("service").value,v=$("vehicle").value;if(!/^\d{10}$/.test(m))return alert("சரியான 10 இலக்க Mobile Number உள்ளிடுங்கள்.");if((s==="One Way"||s==="Round Trip")&&!v)return alert("Vehicle Type தேர்வு செய்யுங்கள்.");let d={service:s,date:$("date").value,pickup:$("pickup").value.trim(),drop:$("drop").value.trim(),passengers:Number($("passengers").value),time:$("time").value,name:$("name").value.trim(),mobile:m,vehicle:v||"",note:$("note").value.trim(),fare:$("fare").textContent};let b=e.submitter;b.disabled=true;b.textContent="⏳ SAVING...";try{await addDoc(collection(db,"bookings"),{...d,createdAt:serverTimestamp(),status:"Pending"})}catch(err){console.error(err)}let msg=`🚕 IFRAH CABS BOOKING\n\nService: ${d.service}\nName: ${d.name}\nMobile: ${d.mobile}\nTravel Date: ${d.date}\nPickup: ${d.pickup}\nDrop: ${d.drop}\nPassengers: ${d.passengers}\nPickup Time: ${d.time}\n${s==="One Way"||s==="Round Trip"?"Vehicle Type: "+d.vehicle+"\n":""}Fare: ${d.fare}
+$("bookingForm").onsubmit=async e=>{
+  e.preventDefault();
+
+  const m=$("mobile").value.trim();
+  const s=$("service").value;
+  const v=$("vehicle").value;
+
+  if(!/^\d{10}$/.test(m)){
+    alert("சரியான 10 இலக்க Mobile Number உள்ளிடுங்கள்.");
+    return;
+  }
+
+  if((s==="One Way"||s==="Round Trip")&&!v){
+    alert("Vehicle Type தேர்வு செய்யுங்கள்.");
+    return;
+  }
+
+  const d={
+    service:s,
+    date:$("date").value,
+    pickup:$("pickup").value.trim(),
+    drop:$("drop").value.trim(),
+    passengers:Number($("passengers").value),
+    time:$("time").value,
+    name:$("name").value.trim(),
+    mobile:m,
+    vehicle:v||"",
+    note:$("note").value.trim(),
+    fare:$("fare").textContent
+  };
+
+  const msg=`🚕 IFRAH CABS BOOKING
+
+Service: ${d.service}
+Name: ${d.name}
+Mobile: ${d.mobile}
+Travel Date: ${d.date}
+Pickup: ${d.pickup}
+Drop: ${d.drop}
+Passengers: ${d.passengers}
+Pickup Time: ${d.time}
+${s==="One Way"||s==="Round Trip"?"Vehicle Type: "+d.vehicle+"\n":""}Fare: ${d.fare}
 Toll: Extra
 Permit: Extra
 Parking: Extra
 Waiting: Extra
+Customer Note: ${d.note||"None"}
 
 🗺️ Google Maps Route:
-${map()}`;$("message").textContent="Booking saved. Opening WhatsApp...";open("https://wa.me/918940694977?text="+encodeURIComponent(msg),"_blank");b.disabled=false;b.textContent="💬 CONFIRM & BOOK ON WHATSAPP"};
+${map()}`;
+
+  const waUrl="https://wa.me/918940694977?text="+encodeURIComponent(msg);
+
+  // Open a window immediately while the tap is still a user action.
+  let waWindow=null;
+  try{ waWindow=window.open("about:blank","_blank"); }catch(e){}
+
+  const b=e.submitter;
+  b.disabled=true;
+  b.textContent="⏳ SAVING...";
+
+  try{
+    await addDoc(collection(db,"bookings"),{
+      ...d,
+      createdAt:serverTimestamp(),
+      status:"Pending"
+    });
+  }catch(err){
+    console.error("Firebase booking save failed:",err);
+  }
+
+  $("message").textContent="Opening WhatsApp...";
+
+  if(waWindow && !waWindow.closed){
+    waWindow.location.href=waUrl;
+  }else{
+    window.location.href=waUrl;
+  }
+
+  b.disabled=false;
+  b.textContent="💬 CONFIRM & BOOK ON WHATSAPP";
+};
