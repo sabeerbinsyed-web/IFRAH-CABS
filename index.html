@@ -28,4 +28,39 @@
 <section class="features"><div>🛡️<b>Safe Travel</b><small>Trusted service</small></div><div>⏰<b>On Time</b><small>Reliable pickup</small></div><div>❄️<b>A/C Cars</b><small>Comfortable ride</small></div><div>📱<b>24/7</b><small>Booking support</small></div></section>
 <section><h2>🧾 One Way Tariff</h2><div class="tariff"><div><b>₹15/km</b><small>Rate</small></div><div><b>130 km</b><small>Minimum</small></div><div><b>₹400</b><small>Driver allowance</small></div></div><p class="note">Toll, permit, parking and waiting charges are extra. Round Trip fare will be confirmed based on trip details.</p></section>
 </main><footer><b>IFRAH CABS</b><p>Share Taxi • One Way • Round Trip</p><a href="tel:8940694977">📞 8940694977</a><small>© 2026 IFRAH CABS • 24/7 Service</small></footer>
-<script type="module" src="script.js"></script></body></html>
+<script type="module" src="script.js"></script></body></html> <script>
+(function(){
+  const btn=document.createElement("button");
+  btn.textContent="தமிழ்";
+  btn.style.cssText="background:#e5b82f;color:#111;border:0;border-radius:10px;padding:9px 13px;font-weight:bold;margin-left:8px";
+  document.querySelector("header").appendChild(btn);
+
+  const changes=[
+    ["header .brand small","பாதுகாப்பான • நம்பகமான • நேரத்திற்கு"],
+    [".hero > span","24/7 கார் சேவை"],
+    [".hero h1","ஷேர் டாக்ஸி & ஒன் வே"],
+    [".hero p","சென்னை விமான நிலையத்திலிருந்து உங்கள் இல்லம் வரை வசதியான பயணம்."],
+    [".hero a.gold","🚕 இப்போதே முன்பதிவு"],
+    ["main > section:nth-of-type(1) h2","💰 பிரபலமான ஷேர் டாக்ஸி கட்டணம்"],
+    ["#booking h2","🚕 உங்கள் டாக்ஸியை முன்பதிவு செய்யுங்கள்"],
+    ["#mapBtn","🗺️ Google Maps திறக்க"],
+    [".submit","💬 உறுதி செய்து WhatsApp-ல் முன்பதிவு செய்யுங்கள்"]
+  ];
+
+  let tamil=false;
+
+  btn.onclick=function(){
+    tamil=!tamil;
+
+    if(tamil){
+      changes.forEach(x=>{
+        const e=document.querySelector(x[0]);
+        if(e)e.textContent=x[1];
+      });
+      btn.textContent="English";
+    }else{
+      location.reload();
+    }
+  };
+})();
+</script>
