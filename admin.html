@@ -1,0 +1,1127 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0d0d0d">
+
+<title>IFRAH CABS • Admin</title>
+
+<link rel="icon" href="favicon.png">
+
+<style>
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  background:#f4f4f4;
+  color:#171717;
+  font-family:Arial,sans-serif;
+}
+
+/* HEADER */
+
+header{
+  background:#0d0d0d;
+  color:#fff;
+  padding:12px 15px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  position:sticky;
+  top:0;
+  z-index:10;
+  box-shadow:0 3px 15px #0003;
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:9px;
+}
+
+.brand img{
+  width:43px;
+  height:43px;
+  border-radius:50%;
+}
+
+.brand b{
+  display:block;
+  color:#d6ad35;
+  font-size:19px;
+}
+
+.brand small{
+  font-size:9px;
+  color:#aaa;
+}
+
+.logout{
+  background:#d6ad35;
+  border:0;
+  border-radius:8px;
+  padding:9px 12px;
+  font-weight:bold;
+}
+
+/* LOGIN */
+
+.login{
+  max-width:410px;
+  margin:70px auto;
+  background:#fff;
+  padding:25px;
+  border-radius:16px;
+  box-shadow:0 5px 25px #0002;
+}
+
+.login h2{
+  text-align:center;
+  color:#a57b12;
+}
+
+input,
+select{
+  width:100%;
+  padding:12px;
+  border:1px solid #ccc;
+  border-radius:9px;
+  background:#fff;
+  margin:5px 0 12px;
+  font-size:15px;
+}
+
+.login button{
+  width:100%;
+  padding:13px;
+  border:0;
+  border-radius:9px;
+  background:#111;
+  color:#d6ad35;
+  font-weight:bold;
+}
+
+.err{
+  text-align:center;
+  color:#d00;
+  font-size:13px;
+}
+
+/* MAIN */
+
+.wrap{
+  max-width:1050px;
+  margin:auto;
+  padding:15px;
+}
+
+/* STATS */
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin-bottom:15px;
+}
+
+.stat{
+  background:#fff;
+  padding:15px;
+  border-radius:13px;
+  text-align:center;
+  box-shadow:0 3px 14px #0001;
+}
+
+.stat span{
+  color:#777;
+  font-size:12px;
+}
+
+.stat b{
+  display:block;
+  font-size:25px;
+  margin-top:4px;
+}
+
+/* SEARCH */
+
+.tools{
+  background:#fff;
+  padding:14px;
+  border-radius:13px;
+  margin-bottom:15px;
+  box-shadow:0 3px 14px #0001;
+}
+
+.tools .grid{
+  display:grid;
+  grid-template-columns:2fr 1fr 1fr;
+  gap:9px;
+}
+
+.refresh{
+  background:#111;
+  color:#d6ad35;
+  border:0;
+  border-radius:8px;
+  padding:10px;
+  font-weight:bold;
+}
+
+/* BOOKING CARD */
+
+.card{
+  background:#fff;
+  border-radius:14px;
+  padding:16px;
+  margin:11px 0;
+  box-shadow:0 3px 14px #0001;
+}
+
+.card-head{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:center;
+}
+
+.card h3{
+  margin:0 0 7px;
+}
+
+.status{
+  border:0;
+  border-radius:20px;
+  padding:7px 10px;
+  font-weight:bold;
+  background:#eee;
+}
+
+.info{
+  line-height:1.65;
+  font-size:14px;
+}
+
+.note{
+  background:#fff8df;
+  border-left:4px solid #d6ad35;
+  padding:10px;
+  border-radius:7px;
+  margin-top:10px;
+  font-size:13px;
+}
+
+/* ACTIONS */
+
+.actions{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+
+.actions a,
+.actions button{
+  padding:9px 11px;
+  border:0;
+  border-radius:8px;
+  text-decoration:none;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.call{
+  background:#e7f6ea;
+  color:#17752a;
+}
+
+.wa{
+  background:#dff5e5;
+  color:#17752a;
+}
+
+.confirm{
+  background:#e6f5e8;
+  color:#19702a;
+}
+
+.cancel{
+  background:#ffe8e8;
+  color:#b00000;
+}
+
+.del{
+  background:#eee;
+  color:#555;
+}
+
+.empty{
+  text-align:center;
+  color:#777;
+  padding:30px;
+}
+
+footer{
+  text-align:center;
+  color:#888;
+  padding:20px;
+  font-size:12px;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+  .stats{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .tools .grid{
+    grid-template-columns:1fr;
+  }
+
+  .card-head{
+    align-items:flex-start;
+  }
+
+  .brand small{
+    display:none;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+
+<div id="loginBox" class="login">
+
+  <h2>🚕 IFRAH CABS</h2>
+
+  <p style="text-align:center">
+    ADMIN PANEL
+  </p>
+
+  <input
+    id="email"
+    type="email"
+    placeholder="Admin Email">
+
+  <input
+    id="password"
+    type="password"
+    placeholder="Password">
+
+  <button id="loginBtn">
+    LOGIN
+  </button>
+
+  <p id="loginError" class="err"></p>
+
+</div>
+
+
+<!-- ADMIN -->
+
+<div id="app" style="display:none">
+
+<header>
+
+  <div class="brand">
+
+    <img src="icon-512.png">
+
+    <div>
+      <b>IFRAH CABS</b>
+      <small>ADMIN DASHBOARD</small>
+    </div>
+
+  </div>
+
+  <button
+    class="logout"
+    id="logoutBtn">
+
+    Logout
+
+  </button>
+
+</header>
+
+
+<div class="wrap">
+
+
+<!-- STATS -->
+
+<div class="stats">
+
+  <div class="stat">
+    <span>Total</span>
+    <b id="total">0</b>
+  </div>
+
+  <div class="stat">
+    <span>Pending</span>
+    <b id="pending">0</b>
+  </div>
+
+  <div class="stat">
+    <span>Confirmed</span>
+    <b id="confirmed">0</b>
+  </div>
+
+  <div class="stat">
+    <span>Cancelled</span>
+    <b id="cancelled">0</b>
+  </div>
+
+</div>
+
+
+<!-- SEARCH / FILTER -->
+
+<div class="tools">
+
+  <div class="grid">
+
+    <input
+      id="search"
+      placeholder="🔍 Search customer / mobile / pickup / drop">
+
+    <select id="statusFilter">
+
+      <option>All Status</option>
+      <option>Pending</option>
+      <option>Confirmed</option>
+      <option>Cancelled</option>
+
+    </select>
+
+
+    <select id="serviceFilter">
+
+      <option>All Services</option>
+      <option>Share Taxi</option>
+      <option>One Way</option>
+      <option>Round Trip</option>
+
+    </select>
+
+  </div>
+
+
+  <input
+    id="dateFilter"
+    type="date">
+
+
+  <button
+    class="refresh"
+    id="refreshBtn">
+
+    🔄 Refresh Bookings
+
+  </button>
+
+</div>
+
+
+<!-- BOOKINGS -->
+
+<div id="list"></div>
+
+</div>
+
+
+<footer>
+  IFRAH CABS • 24/7 Booking Admin
+</footer>
+
+</div>
+
+
+<script type="module">
+
+/* FIREBASE */
+
+import {
+  initializeApp
+} from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+
+import {
+  getAuth,
+  signInWithEmailAndPassword,
+  signOut,
+  onAuthStateChanged
+} from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  query,
+  orderBy,
+  doc,
+  updateDoc,
+  deleteDoc
+} from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+/* FIREBASE CONFIG */
+
+const firebaseConfig = {
+
+  apiKey:
+  "AIzaSyD2yBDsxqzHmHzXy-G9r30uUuNSquDVmZYM",
+
+  authDomain:
+  "ifrah-cabs.firebaseapp.com",
+
+  projectId:
+  "ifrah-cabs",
+
+  storageBucket:
+  "ifrah-cabs.firebasestorage.app",
+
+  messagingSenderId:
+  "1058171424992",
+
+  appId:
+  "1:1058171424992:web:08cfe92a8ab95f014ec085"
+
+};
+
+
+const app =
+initializeApp(firebaseConfig);
+
+const auth =
+getAuth(app);
+
+const db =
+getFirestore(app);
+
+
+const $ =
+id => document.getElementById(id);
+
+
+let bookings = [];
+
+
+/* LOGIN */
+
+$("loginBtn").onclick =
+async function(){
+
+  $("loginError").textContent = "";
+
+  const email =
+  $("email").value.trim();
+
+  const password =
+  $("password").value;
+
+
+  if(!email || !password){
+
+    $("loginError").textContent =
+    "Email and password required.";
+
+    return;
+
+  }
+
+
+  try{
+
+    await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+    $("loginError").textContent =
+    "Login failed: " + error.code;
+
+  }
+
+};
+
+
+/* LOGOUT */
+
+$("logoutBtn").onclick =
+function(){
+
+  signOut(auth);
+
+};
+
+
+/* AUTH */
+
+onAuthStateChanged(
+auth,
+function(user){
+
+  if(user){
+
+    $("loginBox").style.display =
+    "none";
+
+    $("app").style.display =
+    "block";
+
+    loadBookings();
+
+  }
+
+  else{
+
+    $("loginBox").style.display =
+    "block";
+
+    $("app").style.display =
+    "none";
+
+  }
+
+});
+
+
+/* LOAD BOOKINGS */
+
+async function loadBookings(){
+
+  $("list").innerHTML =
+  '<div class="empty">Loading bookings...</div>';
+
+
+  try{
+
+    const q =
+    query(
+      collection(db,"bookings"),
+      orderBy("createdAt","desc")
+    );
+
+
+    const snapshot =
+    await getDocs(q);
+
+
+    bookings = [];
+
+
+    snapshot.forEach(function(item){
+
+      bookings.push({
+
+        id:item.id,
+
+        ...item.data()
+
+      });
+
+    });
+
+
+    updateStats();
+
+    displayBookings();
+
+  }
+
+  catch(error){
+
+    console.error(error);
+
+    $("list").innerHTML =
+    '<div class="empty">' +
+    'Could not load bookings.<br><br>' +
+    escapeHTML(error.message) +
+    '</div>';
+
+  }
+
+}
+
+
+$("refreshBtn").onclick =
+loadBookings;
+
+
+/* FILTER EVENTS */
+
+$("search").oninput =
+displayBookings;
+
+$("statusFilter").onchange =
+displayBookings;
+
+$("serviceFilter").onchange =
+displayBookings;
+
+$("dateFilter").onchange =
+displayBookings;
+
+
+/* STATS */
+
+function updateStats(){
+
+  $("total").textContent =
+  bookings.length;
+
+
+  $("pending").textContent =
+  bookings.filter(
+    b => b.status === "Pending"
+  ).length;
+
+
+  $("confirmed").textContent =
+  bookings.filter(
+    b => b.status === "Confirmed"
+  ).length;
+
+
+  $("cancelled").textContent =
+  bookings.filter(
+    b => b.status === "Cancelled"
+  ).length;
+
+}
+
+
+/* DISPLAY BOOKINGS */
+
+function displayBookings(){
+
+  const search =
+  $("search").value
+  .toLowerCase()
+  .trim();
+
+
+  const status =
+  $("statusFilter").value;
+
+
+  const service =
+  $("serviceFilter").value;
+
+
+  const date =
+  $("dateFilter").value;
+
+
+  const filtered =
+  bookings.filter(function(b){
+
+    const text = [
+
+      b.name,
+      b.mobile,
+      b.pickup,
+      b.drop,
+      b.vehicle,
+      b.note
+
+    ]
+    .join(" ")
+    .toLowerCase();
+
+
+    return (
+
+      text.includes(search)
+
+      &&
+
+      (
+        status === "All Status"
+        ||
+        b.status === status
+      )
+
+      &&
+
+      (
+        service === "All Services"
+        ||
+        b.service === service
+      )
+
+      &&
+
+      (
+        !date
+        ||
+        b.date === date
+      )
+
+    );
+
+  });
+
+
+  if(!filtered.length){
+
+    $("list").innerHTML =
+    '<div class="empty">No bookings found.</div>';
+
+    return;
+
+  }
+
+
+  $("list").innerHTML =
+  filtered
+  .map(createBookingCard)
+  .join("");
+
+}
+
+
+/* BOOKING CARD */
+
+function createBookingCard(b){
+
+  const status =
+  b.status || "Pending";
+
+
+  const phone =
+  String(b.mobile || "")
+  .replace(/\D/g,"")
+  .replace(/^91/,"");
+
+
+  return `
+
+  <div class="card">
+
+    <div class="card-head">
+
+      <div>
+
+        <h3>
+          🚕 ${escapeHTML(
+            b.name || "Customer"
+          )}
+        </h3>
+
+        <div class="info">
+
+          📅 ${escapeHTML(
+            b.date || "-"
+          )}
+
+          &nbsp;
+
+          ⏰ ${escapeHTML(
+            b.time || "-"
+          )}
+
+        </div>
+
+      </div>
+
+
+      <select
+        class="status"
+        onchange="
+          changeStatus(
+            '${b.id}',
+            this.value
+          )
+        ">
+
+        <option
+          ${status==="Pending"
+          ?"selected":""}>
+          Pending
+        </option>
+
+        <option
+          ${status==="Confirmed"
+          ?"selected":""}>
+          Confirmed
+        </option>
+
+        <option
+          ${status==="Cancelled"
+          ?"selected":""}>
+          Cancelled
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div class="info">
+
+      📱 <b>Mobile:</b>
+      ${escapeHTML(b.mobile || "-")}
+      <br>
+
+      📍 <b>Pickup:</b>
+      ${escapeHTML(b.pickup || "-")}
+      <br>
+
+      🏁 <b>Drop:</b>
+      ${escapeHTML(b.drop || "-")}
+      <br>
+
+      🚕 <b>Service:</b>
+      ${escapeHTML(b.service || "-")}
+      <br>
+
+      ${
+        b.vehicle
+        ?
+        `🚗 <b>Vehicle:</b>
+        ${escapeHTML(b.vehicle)}<br>`
+        :
+        ""
+      }
+
+      👥 <b>Passengers:</b>
+      ${escapeHTML(
+        String(b.passengers || "-")
+      )}
+      <br>
+
+      💰 <b>Fare:</b>
+      ${escapeHTML(b.fare || "-")}
+
+    </div>
+
+
+    ${
+      b.note
+      ?
+      `
+      <div class="note">
+
+        📝 <b>Customer Note:</b>
+
+        <br>
+
+        ${escapeHTML(b.note)}
+
+      </div>
+      `
+      :
+      ""
+    }
+
+
+    <div class="actions">
+
+      <a
+        class="call"
+        href="tel:${phone}">
+
+        📞 Call
+
+      </a>
+
+
+      <a
+        class="wa"
+        target="_blank"
+        href="https://wa.me/91${phone}">
+
+        💬 WhatsApp
+
+      </a>
+
+
+      <button
+        class="confirm"
+        onclick="
+          changeStatus(
+            '${b.id}',
+            'Confirmed'
+          )
+        ">
+
+        ✅ Confirm
+
+      </button>
+
+
+      <button
+        class="cancel"
+        onclick="
+          changeStatus(
+            '${b.id}',
+            'Cancelled'
+          )
+        ">
+
+        ❌ Cancel
+
+      </button>
+
+
+      <button
+        class="del"
+        onclick="
+          removeBooking(
+            '${b.id}'
+          )
+        ">
+
+        🗑️ Delete
+
+      </button>
+
+    </div>
+
+  </div>
+
+  `;
+
+}
+
+
+/* CHANGE STATUS */
+
+window.changeStatus =
+async function(id,status){
+
+  try{
+
+    await updateDoc(
+
+      doc(db,"bookings",id),
+
+      {
+        status:status
+      }
+
+    );
+
+
+    const booking =
+    bookings.find(
+      b => b.id === id
+    );
+
+
+    if(booking){
+
+      booking.status =
+      status;
+
+    }
+
+
+    updateStats();
+
+    displayBookings();
+
+  }
+
+  catch(error){
+
+    alert(
+      "Update failed: " +
+      error.message
+    );
+
+  }
+
+};
+
+
+/* DELETE */
+
+window.removeBooking =
+async function(id){
+
+  if(
+    !confirm(
+      "Delete this booking permanently?"
+    )
+  ){
+
+    return;
+
+  }
+
+
+  try{
+
+    await deleteDoc(
+      doc(db,"bookings",id)
+    );
+
+
+    bookings =
+    bookings.filter(
+      b => b.id !== id
+    );
+
+
+    updateStats();
+
+    displayBookings();
+
+  }
+
+  catch(error){
+
+    alert(
+      "Delete failed: " +
+      error.message
+    );
+
+  }
+
+};
+
+
+/* SECURITY DISPLAY HELPER */
+
+function escapeHTML(value){
+
+  return String(value ?? "")
+
+  .replace(/&/g,"&amp;")
+
+  .replace(/</g,"&lt;")
+
+  .replace(/>/g,"&gt;")
+
+  .replace(/"/g,"&quot;")
+
+  .replace(/'/g,"&#039;");
+
+}
+
+</script>
+
+</body>
+</html>
